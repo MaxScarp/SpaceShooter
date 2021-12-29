@@ -36,7 +36,7 @@ namespace SpaceShooter
             for (int i = 0; i < bulletNum; i++)
             {
                 bullets[i].Draw();
-            }feavef
+            }
         }
 
         public static Bullet GetFreeBullet()

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using OpenTK;
 
 namespace SpaceShooter
-{ferfev
+{
     class Background
     {
         private int spritesNum;
