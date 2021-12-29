@@ -22,14 +22,14 @@ namespace SpaceShooter
             {
                 bullets[i] = new Bullet();
             }
-        }gewgewg
+        }
 
-        public static void Update()dfegwgewgwe
+        public static void Update()
         {
             for (int i = 0; i < bulletNum; i++)
             {
                 bullets[i].Update();
-            }vwevwe
+            }
         }
         public static void Draw()
         {
