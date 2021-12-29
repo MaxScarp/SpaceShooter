@@ -46,7 +46,7 @@ namespace SpaceShooter
                 sprite.DrawTexture(texture);
             }
         }
-
+        cwfwfw
         private void Move()
         {
             if (velocity.X != 0 || velocity.Y != 0)
