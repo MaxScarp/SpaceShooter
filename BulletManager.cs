@@ -10,46 +10,93 @@ namespace SpaceShooter
 {
     static class BulletManager
     {
-        private static int bulletNum;
-        private static Bullet[] bullets;
+        private static int playerBulletNum;
+        private static int enemyBulletNum;
+        private static Queue<PlayerBullet> playerBullets;
+        private static List<PlayerBullet> activePlayerBullets;
+        private static Queue<EnemyBullet> enemyBullets;
+        private static List<EnemyBullet> activeEnemyBullets;
 
-        public static void Init(int _bulletNum)
+        public static void Init(int _playerBulletNum, int _enemyBulletNum)
         {
-            bulletNum = _bulletNum;
-            bullets = new Bullet[bulletNum];
+            playerBulletNum = _playerBulletNum;
+            enemyBulletNum = _enemyBulletNum;
 
-            for (int i = 0; i < bulletNum; i++)
+            playerBullets = new Queue<PlayerBullet>(playerBulletNum);
+            enemyBullets = new Queue<EnemyBullet>(enemyBulletNum);
+
+            for (int i = 0; i < playerBulletNum; i++)
             {
-                bullets[i] = new Bullet();
+                playerBullets.Enqueue(new PlayerBullet());
             }
+
+            for (int i = 0; i < enemyBulletNum; i++)
+            {
+                enemyBullets.Enqueue(new EnemyBullet());
+            }
+
+            activePlayerBullets = new List<PlayerBullet>();
+            activeEnemyBullets = new List<EnemyBullet>();
         }
 
         public static void Update()
         {
-            for (int i = 0; i < bulletNum; i++)
+            for (int i = 0; i < activePlayerBullets.Count; i++)
             {
-                bullets[i].Update();
+                activePlayerBullets[i].Update();
+            }
+            for (int i = 0; i < activeEnemyBullets.Count; i++)
+            {
+                activeEnemyBullets[i].Update();
             }
         }
+
         public static void Draw()
         {
-            for (int i = 0; i < bulletNum; i++)
+            for (int i = 0; i < activePlayerBullets.Count; i++)
             {
-                bullets[i].Draw();
+                activePlayerBullets[i].Draw();
+            }
+            for (int i = 0; i < activeEnemyBullets.Count; i++)
+            {
+                activeEnemyBullets[i].Draw();
             }
         }
 
-        public static Bullet GetFreeBullet()
+        public static PlayerBullet GetFreePlayerBullet()
         {
-            for (int i = 0; i < bulletNum; i++)
+            if(playerBullets.Count > 0)
             {
-                if (!bullets[i].isAlive)
-                {
-                    return bullets[i];
-                }
-            }
+                PlayerBullet bullet = playerBullets.Dequeue();
+                activePlayerBullets.Add(bullet);
 
+                return bullet;
+            }
             return null;
+        }
+
+        public static EnemyBullet GetFreeEnemyBullet()
+        {
+            if (enemyBullets.Count > 0)
+            {
+                EnemyBullet bullet = enemyBullets.Dequeue();
+                activeEnemyBullets.Add(bullet);
+
+                return bullet;
+            }
+            return null;
+        }
+
+        public static void RestorePlayerBullet(PlayerBullet bullet)
+        {
+            activePlayerBullets.Remove(bullet);
+            playerBullets.Enqueue(bullet);
+        }
+
+        public static void RestoreEnemyBullet(EnemyBullet bullet)
+        {
+            activeEnemyBullets.Remove(bullet);
+            enemyBullets.Enqueue(bullet);
         }
     }
 }

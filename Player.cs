@@ -19,6 +19,7 @@ namespace SpaceShooter
         public Vector2 Position { get { return sprite.position; } set { sprite.position = value; } }
 
         private bool shot;
+        private Vector2 shootOffset;
 
         public bool IsAlive;
 
@@ -28,9 +29,10 @@ namespace SpaceShooter
             sprite = new Sprite(texture.Width, texture.Height);
             sprite.pivot = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
 
-            speed = 375.0f;
+            speed = 455.0f;
 
             shot = false;
+            shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);
 
             IsAlive = true;
         }
@@ -40,41 +42,43 @@ namespace SpaceShooter
             if(IsAlive)
             {
                 MovementInput();
-                Shoot();
+                ShootInput();
             }
         }
+
         public void Update()
         {
             if(IsAlive)
             {
                 Move();
             }
-            BulletManager.Update();
         }
+
         public void Draw()
         {
             if(IsAlive)
             {
                 sprite.DrawTexture(texture);
             }
-            BulletManager.Draw();
         }
 
         private void Shoot()
         {
-            if(Game.Window.GetKey(KeyCode.Space))
+            PlayerBullet bullet = BulletManager.GetFreePlayerBullet();
+            if(bullet != null)
             {
-                if(!shot)
+                bullet.Shoot(Position + shootOffset);
+            }
+        }
+
+        private void ShootInput()
+        {
+            if (Game.Window.GetKey(KeyCode.Space))
+            {
+                if (!shot)
                 {
                     shot = true;
-
-                    Bullet bullet = BulletManager.GetFreeBullet();
-                    if(bullet != null)
-                    {
-                        bullet.isAlive = true;
-                        bullet.Position = Position;
-                        bullet.velocity.X = bullet.Speed;
-                    }
+                    Shoot();
                 }
             }
             else

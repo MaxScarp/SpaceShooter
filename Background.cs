@@ -1,55 +1,48 @@
 ﻿using Aiv.Fast2D;
+using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK;
 
 namespace SpaceShooter
 {
     class Background
     {
-        private int spritesNum;
         private Texture texture;
-        private Sprite[] sprites;
-        private float offset;
+        private Sprite head;
+        private Sprite tail;
 
+        private Vector2 velocity;
         private float speed;
 
         public Background()
         {
-            spritesNum = 2;
             texture = new Texture("Assets/spaceBg.png");
-            sprites = new Sprite[spritesNum];
+            head = new Sprite(texture.Width, texture.Height);
+            tail = new Sprite(texture.Width, texture.Height);
 
-            for (int i = 0; i < spritesNum; i++)
-            {
-                sprites[i] = new Sprite(texture.Width, texture.Height);
-                sprites[i].position = new Vector2(i * sprites[i].Width, 0f);
-            }
-
-            offset = 5f;
-            speed = 250.0f;
+            speed = -475.0f;
+            velocity.X = speed;
         }
 
         public void Update()
         {
-            for (int i = 0; i < spritesNum; i++)
+            head.position.X += velocity.X * Game.DeltaTime;
+
+            if (head.position.X <= -head.Width)
             {
-                sprites[i].position.X -= speed * Game.DeltaTime;
-                if(sprites[i].position.X <= -sprites[i].Width)
-                {
-                    sprites[i].position = new Vector2(sprites[i].Width - offset, 0f);
-                }
+                head.position.X += head.Width;
             }
+
+            tail.position.X = head.position.X + head.Width;
         }
+
         public void Draw()
         {
-            for (int i = 0; i < spritesNum; i++)
-            {
-                sprites[i].DrawTexture(texture);
-            }
+            head.DrawTexture(texture);
+            tail.DrawTexture(texture);
         }
     }
 }

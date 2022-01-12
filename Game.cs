@@ -14,7 +14,8 @@ namespace SpaceShooter
         private static Background background;
         private static Player player;
 
-        private static int numBullets;
+        private static int playerNumBullets;
+        private static int enemyNumBullets;
 
         public static Window Window { get { return window; } }
         public static float DeltaTime { get { return window.DeltaTime; } }
@@ -30,8 +31,10 @@ namespace SpaceShooter
             player.Position = new Vector2(100, window.Height * 0.5f);
 
             //MANAGERS
-            numBullets = 10;
-            BulletManager.Init(numBullets);
+            playerNumBullets = 10;
+            enemyNumBullets = 4;
+            BulletManager.Init(playerNumBullets, enemyNumBullets);
+            SpawnManager.Init();
         }
 
         public static void Play()
@@ -40,18 +43,19 @@ namespace SpaceShooter
             {
                 //INPUT
                 Quit();
-
                 player.Input();
 
                 //UPDATE
                 background.Update();
-
                 player.Update();
+                BulletManager.Update();
+                SpawnManager.Update();
 
                 //DRAW
                 background.Draw();
-
                 player.Draw();
+                BulletManager.Draw();
+                SpawnManager.Draw();
 
                 window.Update();
             }
