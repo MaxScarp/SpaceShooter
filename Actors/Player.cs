@@ -8,27 +8,14 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    class Player
+    class Player : Actor
     {
-        private Texture texture;
-        private Sprite sprite;
-
-        private Vector2 velocity;
-        private float speed;
-
-        public Vector2 Position { get { return sprite.position; } set { sprite.position = value; } }
-
         private bool shot;
-        private Vector2 shootOffset;
 
         public bool IsAlive;
 
-        public Player()
+        public Player() : base("Assets/player_ship.png")
         {
-            texture = new Texture("Assets/player_ship.png");
-            sprite = new Sprite(texture.Width, texture.Height);
-            sprite.pivot = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
-
             speed = 455.0f;
 
             shot = false;
@@ -46,23 +33,24 @@ namespace SpaceShooter
             }
         }
 
-        public void Update()
+        public override void Update()
         {
             if(IsAlive)
             {
                 Move();
+                base.Update();
             }
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if(IsAlive)
             {
-                sprite.DrawTexture(texture);
+                base.Draw();
             }
         }
 
-        private void Shoot()
+        protected override void Shoot()
         {
             PlayerBullet bullet = BulletManager.GetFreePlayerBullet();
             if(bullet != null)
@@ -122,7 +110,6 @@ namespace SpaceShooter
             {
                 velocity = velocity.Normalized() * speed;
             }
-            Position += velocity * Game.DeltaTime;
         }
     }
 }

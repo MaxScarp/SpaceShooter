@@ -8,25 +8,12 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    class Enemy
+    class Enemy : Actor
     {
-        private Texture texture;
-        private Sprite sprite;
-
-        private Vector2 velocity;
-        private float speed;
-
-        public Vector2 Position { get { return sprite.position; } set { sprite.position = value; } }
-        public Vector2 Pivot { get { return sprite.pivot; } set { sprite.pivot = value; } }
-
-        private Vector2 shootOffset;
         private float nextShoot;
 
-        public Enemy()
+        public Enemy() : base("Assets/enemy_ship.png")
         {
-            texture = new Texture("Assets/enemy_ship.png");
-            sprite = new Sprite(texture.Width, texture.Height);
-            sprite.pivot = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
             sprite.FlipX = true;
 
             speed = -315.0f;
@@ -36,10 +23,10 @@ namespace SpaceShooter
             nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
         }
 
-        public void Update()
+        public override void Update()
         {
-            Position += velocity * Game.DeltaTime;
-                
+            base.Update();
+            
             if(Position.X + Pivot.X < 0)
             {
                 SpawnManager.RestoreEnemy(this);
@@ -54,12 +41,7 @@ namespace SpaceShooter
             }
         }
 
-        public void Draw()
-        {
-            sprite.DrawTexture(texture);
-        }
-
-        private void Shoot()
+        protected override void Shoot()
         {
             EnemyBullet bullet = BulletManager.GetFreeEnemyBullet();
             if (bullet != null)
