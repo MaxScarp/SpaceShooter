@@ -32,7 +32,7 @@ namespace SpaceShooter
 
             //MANAGERS
             playerNumBullets = 10;
-            enemyNumBullets = 4;
+            enemyNumBullets = 16;
             BulletManager.Init(playerNumBullets, enemyNumBullets);
             SpawnManager.Init();
         }

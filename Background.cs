@@ -23,7 +23,7 @@ namespace SpaceShooter
             head = new Sprite(texture.Width, texture.Height);
             tail = new Sprite(texture.Width, texture.Height);
 
-            speed = -475.0f;
+            speed = -275.0f;
             velocity.X = speed;
         }
 
