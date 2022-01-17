@@ -16,9 +16,10 @@ namespace SpaceShooter
         {
             sprite.FlipX = true;
 
-            speed = -315.0f;
+            speed = -515.0f;
             velocity.X = speed;
 
+            bulletType = BulletType.EnemyBullet;
             shootOffset = new Vector2(-Pivot.X, Pivot.Y * 0.5f);
             nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
         }
@@ -38,15 +39,6 @@ namespace SpaceShooter
             {
                 nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
                 Shoot();
-            }
-        }
-
-        protected override void Shoot()
-        {
-            EnemyBullet bullet = BulletManager.GetFreeEnemyBullet();
-            if (bullet != null)
-            {
-                bullet.Shoot(Position + shootOffset);
             }
         }
     }

@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    abstract class Actor
+    enum BulletType { PlayerBullet, EnemyBullet, LAST }
+
+    abstract class Bullet
     {
         protected Texture texture;
         protected Sprite sprite;
@@ -16,17 +18,17 @@ namespace SpaceShooter
         protected Vector2 velocity;
         protected float speed;
 
-        protected BulletType bulletType;
-        protected Vector2 shootOffset;
-
         public Vector2 Position { get { return sprite.position; } set { sprite.position = value; } }
-        public Vector2 Pivot { get { return sprite.pivot; } set { sprite.pivot = value; } }
 
-        public Actor(string texturePath)
+        public Bullet(string texturePath, int spriteWidth = 0, int spriteHeight = 0)
         {
             texture = new Texture(texturePath);
-            sprite = new Sprite(texture.Width, texture.Height);
-            Pivot = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
+
+            int spriteW = spriteWidth != 0 ? spriteWidth : texture.Width;
+            int spriteH = spriteHeight != 0 ? spriteHeight : texture.Height;
+
+            sprite = new Sprite(spriteW, spriteH);
+            sprite.pivot = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
         }
 
         public virtual void Update()
@@ -39,13 +41,9 @@ namespace SpaceShooter
             sprite.DrawTexture(texture);
         }
 
-        protected virtual void Shoot()
+        public void Shoot(Vector2 shootPos)
         {
-            Bullet bullet = BulletManager.GetBullet(bulletType);
-            if (bullet != null)
-            {
-                bullet.Shoot(Position + shootOffset);
-            }
+            Position = shootPos;
         }
     }
 }

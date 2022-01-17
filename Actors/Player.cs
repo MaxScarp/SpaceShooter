@@ -19,6 +19,7 @@ namespace SpaceShooter
             speed = 455.0f;
 
             shot = false;
+            bulletType = BulletType.PlayerBullet;
             shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);
 
             IsAlive = true;
@@ -47,15 +48,6 @@ namespace SpaceShooter
             if(IsAlive)
             {
                 base.Draw();
-            }
-        }
-
-        protected override void Shoot()
-        {
-            PlayerBullet bullet = BulletManager.GetFreePlayerBullet();
-            if(bullet != null)
-            {
-                bullet.Shoot(Position + shootOffset);
             }
         }
 
