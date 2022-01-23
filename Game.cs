@@ -24,6 +24,9 @@ namespace SpaceShooter
         {
             //CANVAS
             window = new Window(1280, 720, "SPACE SHOOTER");
+
+            LoadAssets();
+
             background = new Background();
 
             //PLAYER
@@ -67,6 +70,15 @@ namespace SpaceShooter
             {
                 window.Exit();
             }
+        }
+
+        private static void LoadAssets()
+        {
+            GfxManager.AddTexture("player", "Assets/player_ship.png");
+            GfxManager.AddTexture("enemy", "Assets/enemy_ship.png");
+            GfxManager.AddTexture("blueLaser", "Assets/blueLaser.png");
+            GfxManager.AddTexture("beams", "Assets/beams.png");
+            GfxManager.AddTexture("fireGlobe", "Assets/fireGlobe.png");
         }
     }
 }

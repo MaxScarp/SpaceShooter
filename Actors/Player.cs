@@ -14,7 +14,7 @@ namespace SpaceShooter
 
         public bool IsAlive;
 
-        public Player() : base("Assets/player_ship.png")
+        public Player() : base("player")
         {
             speed = 455.0f;
 

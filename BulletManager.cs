@@ -35,7 +35,14 @@ namespace SpaceShooter
                         bullets[i] = new Queue<Bullet>(enemyBulletNum);
                         for (int j = 0; j < enemyBulletNum; j++)
                         {
-                            bullets[i].Enqueue(new EnemyBullet());
+                            if(j <= enemyBulletNum * 0.5f)
+                            {
+                                bullets[i].Enqueue(new RedLaser());
+                            }
+                            else
+                            {
+                                bullets[i].Enqueue(new FireGlobe());
+                            }
                         }
                         break;
                     default:

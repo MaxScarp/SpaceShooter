@@ -10,7 +10,7 @@ namespace SpaceShooter
 {
     class PlayerBullet : Bullet
     {
-        public PlayerBullet() : base("Assets/blueLaser.png")
+        public PlayerBullet() : base("blueLaser")
         {
             speed = 1075.13f;
             velocity.X = speed;

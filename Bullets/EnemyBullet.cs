@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    class EnemyBullet : Bullet
+    abstract class EnemyBullet : Bullet
     {
-        public EnemyBullet() : base("Assets/beams.png", 74, 46)
+        public EnemyBullet(string textureName, int spriteWidth = 0, int spriteHeight = 0) : base(textureName, spriteWidth, spriteHeight)
         {
             sprite.FlipX = true;
 
@@ -25,11 +25,6 @@ namespace SpaceShooter
             {
                 BulletManager.RestoreBullet(this);
             }
-        }
-
-        public override void Draw()
-        {
-            sprite.DrawTexture(texture, 156, 227, (int)sprite.Width, (int)sprite.Height);
         }
     }
 }

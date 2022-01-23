@@ -12,7 +12,7 @@ namespace SpaceShooter
     {
         private float nextShoot;
 
-        public Enemy() : base("Assets/enemy_ship.png")
+        public Enemy() : base("enemy")
         {
             sprite.FlipX = true;
 
