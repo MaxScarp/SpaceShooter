@@ -37,21 +37,8 @@ namespace SpaceShooter
 
             if(nextSpawn <= 0)
             {
-                nextSpawn = RandomGenerator.GetRandomInt(3, 5);
+                nextSpawn = RandomGenerator.GetRandomInt(1, 3);
                 SpawnEnemy();
-            }
-
-            for (int i = 0; i < activeEnemies.Count; i++)
-            {
-                activeEnemies[i].Update();
-            }
-        }
-
-        public static void Draw()
-        {
-            for (int i = 0; i < activeEnemies.Count; i++)
-            {
-                activeEnemies[i].Draw();
             }
         }
 
@@ -63,6 +50,9 @@ namespace SpaceShooter
                 activeEnemies.Add(enemy);
                 
                 enemy.Position = new Vector2(Game.Window.Width + enemy.Pivot.X, RandomGenerator.GetRandomInt((int)enemy.Pivot.Y, Game.Window.Height - (int)enemy.Pivot.Y));
+
+                UpdateManager.AddItem(enemy);
+                DrawManager.AddItem(enemy);
             }
         }
 
@@ -70,6 +60,9 @@ namespace SpaceShooter
         {
             activeEnemies.Remove(enemy);
             enemies.Enqueue(enemy);
+
+            UpdateManager.RemoveItem(enemy);
+            DrawManager.RemoveItem(enemy);
         }
     }
 }

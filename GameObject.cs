@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    class GameObject
+    class GameObject : I_Updatable, I_Drawable
     {
         protected Texture texture;
         protected Sprite sprite;

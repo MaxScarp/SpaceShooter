@@ -12,8 +12,6 @@ namespace SpaceShooter
     {
         private bool shot;
 
-        public bool IsAlive;
-
         public Player() : base("player")
         {
             speed = 455.0f;
@@ -22,33 +20,20 @@ namespace SpaceShooter
             bulletType = BulletType.PlayerBullet;
             shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);
 
-            IsAlive = true;
+            UpdateManager.AddItem(this);
+            DrawManager.AddItem(this);
         }
 
         public void Input()
         {
-            if(IsAlive)
-            {
-                MovementInput();
-                ShootInput();
-            }
+            MovementInput();
+            ShootInput();
         }
 
         public override void Update()
         {
-            if(IsAlive)
-            {
-                Move();
-                base.Update();
-            }
-        }
-
-        public override void Draw()
-        {
-            if(IsAlive)
-            {
-                base.Draw();
-            }
+            Move();
+            base.Update();
         }
 
         private void ShootInput()

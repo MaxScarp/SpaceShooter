@@ -52,20 +52,24 @@
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Bullets\FireGlobe.cs" />
     <Compile Include="Bullets\RedLaser.cs" />
+    <Compile Include="Managers\DrawManager.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Bullets\Bullet.cs" />
     <Compile Include="Bullets\EnemyBullet.cs" />
     <Compile Include="Bullets\PlayerBullet.cs" />
-    <Compile Include="BulletManager.cs" />
+    <Compile Include="Managers\BulletManager.cs" />
     <Compile Include="Actors\Enemy.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Actors\Player.cs" />
-    <Compile Include="GfxManager.cs" />
+    <Compile Include="Managers\GfxManager.cs" />
+    <Compile Include="Interfaces\I_Drawable.cs" />
+    <Compile Include="Interfaces\I_Updatable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomGenerator.cs" />
-    <Compile Include="SpawnManager.cs" />
+    <Compile Include="Managers\SpawnManager.cs" />
+    <Compile Include="Managers\UpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -136,5 +140,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

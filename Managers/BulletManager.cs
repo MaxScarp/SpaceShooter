@@ -59,28 +59,6 @@ namespace SpaceShooter
             }
         }
 
-        public static void Update()
-        {
-            for (int i = 0; i < activeBullets.Length; i++)
-            {
-                for (int j = 0; j < activeBullets[i].Count; j++)
-                {
-                    activeBullets[i][j].Update();
-                }
-            }
-        }
-
-        public static void Draw()
-        {
-            for (int i = 0; i < activeBullets.Length; i++)
-            {
-                for (int j = 0; j < activeBullets[i].Count; j++)
-                {
-                    activeBullets[i][j].Draw();
-                }
-            }
-        }
-
         public static Bullet GetBullet(BulletType type)
         {
             int index = (int)type;
@@ -89,6 +67,9 @@ namespace SpaceShooter
             {
                 Bullet bullet = bullets[index].Dequeue();
                 activeBullets[index].Add(bullet);
+
+                UpdateManager.AddItem(bullet);
+                DrawManager.AddItem(bullet);
 
                 return bullet;
             }
@@ -102,6 +83,9 @@ namespace SpaceShooter
 
             activeBullets[index].Remove(bullet);
             bullets[index].Enqueue(bullet);
+
+            UpdateManager.RemoveItem(bullet);
+            DrawManager.RemoveItem(bullet);
         }
     }
 }

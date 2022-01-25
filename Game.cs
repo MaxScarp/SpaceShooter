@@ -49,16 +49,13 @@ namespace SpaceShooter
                 player.Input();
 
                 //UPDATE
-                background.Update();
-                player.Update();
-                BulletManager.Update();
                 SpawnManager.Update();
+                background.Update();
+                UpdateManager.Update();
 
                 //DRAW
                 background.Draw();
-                player.Draw();
-                BulletManager.Draw();
-                SpawnManager.Draw();
+                DrawManager.Update();
 
                 window.Update();
             }
