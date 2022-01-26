@@ -41,5 +41,10 @@ namespace SpaceShooter
                 Shoot();
             }
         }
+
+        public override void OnCollide(GameObject other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -12,11 +12,20 @@ namespace SpaceShooter
 
     abstract class Bullet : GameObject
     {
-        public Bullet(string textureName, int spriteWidth = 0, int spriteHeight = 0) : base(textureName, spriteWidth, spriteHeight) { }
+        public Bullet(string textureName, int spriteWidth = 0, int spriteHeight = 0) : base(textureName, spriteWidth, spriteHeight)
+        {
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = ColliderFactory.CreateCirlceFor(this);
+        }
 
         public void Shoot(Vector2 shootPos)
         {
             Position = shootPos;
+        }
+
+        public override void OnCollide(GameObject other)
+        {
+            BulletManager.RestoreBullet(this);
         }
     }
 }

@@ -56,6 +56,7 @@ namespace SpaceShooter
                 //DRAW
                 background.Draw();
                 DrawManager.Update();
+                PhysicsManager.CheckCollisions();
 
                 window.Update();
             }

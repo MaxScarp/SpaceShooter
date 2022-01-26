@@ -36,6 +36,11 @@ namespace SpaceShooter
             base.Update();
         }
 
+        public override void OnCollide(GameObject other)
+        {
+            throw new NotImplementedException();
+        }
+
         private void ShootInput()
         {
             if (Game.Window.GetKey(KeyCode.Space))
