@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    static class ColliderFactory
+    static class CollidersFactory
     {
         public static Collider CreateCirlceFor(GameObject obj, bool innerCircle = true)
         {

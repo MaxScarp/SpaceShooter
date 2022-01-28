@@ -14,6 +14,10 @@ namespace SpaceShooter
 
         public Player() : base("player")
         {
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
+            RigidBody.IsActive = true;
+
             speed = 455.0f;
 
             shot = false;
@@ -38,7 +42,7 @@ namespace SpaceShooter
 
         public override void OnCollide(GameObject other)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{GetType()} collides with {other.GetType()}");
         }
 
         private void ShootInput()

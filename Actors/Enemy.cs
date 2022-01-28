@@ -14,6 +14,9 @@ namespace SpaceShooter
 
         public Enemy() : base("enemy")
         {
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
+
             sprite.FlipX = true;
 
             speed = -515.0f;
@@ -44,7 +47,7 @@ namespace SpaceShooter
 
         public override void OnCollide(GameObject other)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"{GetType()} collides with {other.GetType()}");
         }
     }
 }

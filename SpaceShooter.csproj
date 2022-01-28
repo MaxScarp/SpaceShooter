@@ -54,7 +54,7 @@
     <Compile Include="Bullets\RedLaser.cs" />
     <Compile Include="Engine\Physics\Colliders\CircleCollider.cs" />
     <Compile Include="Engine\Physics\Colliders\Collider.cs" />
-    <Compile Include="Engine\Physics\Colliders\ColliderFactory.cs" />
+    <Compile Include="Engine\Physics\Colliders\CollidersFactory.cs" />
     <Compile Include="Managers\DrawManager.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Background.cs" />
