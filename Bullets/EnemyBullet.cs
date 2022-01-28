@@ -15,14 +15,29 @@ namespace SpaceShooter
             sprite.FlipX = true;
 
             speed = -950.13f;
-            velocity.X = speed;
+            RigidBody.Velocity.X = speed;
         }
 
         public override void Update()
         {
-            base.Update();
-            if (Position.X + sprite.pivot.X < 0)
+            if (IsActive)
             {
+                if (Position.X + sprite.pivot.X < 0)
+                {
+                    BulletManager.RestoreBullet(this);
+                }
+            }
+        }
+
+        public override void OnCollide(GameObject other)
+        {
+            if(other is PlayerBullet)
+            {
+                BulletManager.RestoreBullet(this);
+            }
+            else if(other is Player)
+            {
+                ((Player)other).AddDamage(damage);
                 BulletManager.RestoreBullet(this);
             }
         }

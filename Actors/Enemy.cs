@@ -14,13 +14,10 @@ namespace SpaceShooter
 
         public Enemy() : base("enemy")
         {
-            RigidBody = new RigidBody(this);
-            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
-
             sprite.FlipX = true;
 
-            speed = -515.0f;
-            velocity.X = speed;
+            speed = -475.0f;
+            RigidBody.Velocity.X = speed;
 
             bulletType = BulletType.EnemyBullet;
             shootOffset = new Vector2(-Pivot.X, Pivot.Y * 0.5f);
@@ -29,25 +26,26 @@ namespace SpaceShooter
 
         public override void Update()
         {
-            base.Update();
-            
-            if(Position.X + Pivot.X < 0)
+            if (IsActive)
             {
-                SpawnManager.RestoreEnemy(this);
-            }
+                if (Position.X + Pivot.X < 0)
+                {
+                    SpawnManager.RestoreEnemy(this);
+                }
 
-            nextShoot -= Game.Window.DeltaTime;
+                nextShoot -= Game.Window.DeltaTime;
 
-            if(nextShoot <= 0)
-            {
-                nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
-                Shoot();
+                if (nextShoot <= 0)
+                {
+                    nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
+                    Shoot();
+                } 
             }
         }
 
-        public override void OnCollide(GameObject other)
+        protected override void OnDie()
         {
-            Console.WriteLine($"{GetType()} collides with {other.GetType()}");
+            SpawnManager.RestoreEnemy(this);
         }
     }
 }

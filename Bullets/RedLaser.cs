@@ -8,11 +8,17 @@ namespace SpaceShooter
 {
     class RedLaser : EnemyBullet
     {
-        public RedLaser() : base("beams", 74, 46) { }
+        public RedLaser() : base("beams", 74, 46)
+        {
+            damage = 25;
+        }
 
         public override void Draw()
         {
-            sprite.DrawTexture(texture, 156, 227, (int)sprite.Width, (int)sprite.Height);
+            if (IsActive)
+            {
+                sprite.DrawTexture(texture, 156, 227, (int)sprite.Width, (int)sprite.Height);
+            }
         }
     }
 }

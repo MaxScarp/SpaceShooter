@@ -14,18 +14,13 @@ namespace SpaceShooter
 
         public Player() : base("player")
         {
-            RigidBody = new RigidBody(this);
-            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
-            RigidBody.IsActive = true;
+            IsActive = true;
 
             speed = 455.0f;
 
             shot = false;
             bulletType = BulletType.PlayerBullet;
             shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);
-
-            UpdateManager.AddItem(this);
-            DrawManager.AddItem(this);
         }
 
         public void Input()
@@ -37,12 +32,6 @@ namespace SpaceShooter
         public override void Update()
         {
             Move();
-            base.Update();
-        }
-
-        public override void OnCollide(GameObject other)
-        {
-            Console.WriteLine($"{GetType()} collides with {other.GetType()}");
         }
 
         private void ShootInput()
@@ -65,36 +54,45 @@ namespace SpaceShooter
         {
             if (Game.Window.GetKey(KeyCode.D) && (Position.X + sprite.Width * 0.5f < Game.Window.Width))
             {
-                velocity.X = speed;
+                RigidBody.Velocity.X = speed;
             }
             else if (Game.Window.GetKey(KeyCode.A) && (Position.X - sprite.Width * 0.5f >= 0))
             {
-                velocity.X = -speed;
+                RigidBody.Velocity.X = -speed;
             }
             else
             {
-                velocity.X = 0.0f;
+                RigidBody.Velocity.X = 0.0f;
             }
 
             if (Game.Window.GetKey(KeyCode.W) && (Position.Y - sprite.Height * 0.5f >= 0))
             {
-                velocity.Y = -speed;
+                RigidBody.Velocity.Y = -speed;
             }
             else if (Game.Window.GetKey(KeyCode.S) && (Position.Y + sprite.Height * 0.5f < Game.Window.Height))
             {
-                velocity.Y = speed;
+                RigidBody.Velocity.Y = speed;
             }
             else
             {
-                velocity.Y = 0.0f;
+                RigidBody.Velocity.Y = 0.0f;
             }
         }
 
         private void Move()
         {
-            if (velocity.X != 0 || velocity.Y != 0)
+            if (RigidBody.Velocity.X != 0 || RigidBody.Velocity.Y != 0)
             {
-                velocity = velocity.Normalized() * speed;
+                RigidBody.Velocity = RigidBody.Velocity.Normalized() * speed;
+            }
+        }
+
+        public override void OnCollide(GameObject other)
+        {
+            if (other is Enemy)
+            {
+                SpawnManager.RestoreEnemy((Enemy)other);
+                AddDamage(100);
             }
         }
     }

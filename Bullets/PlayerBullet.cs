@@ -13,14 +13,31 @@ namespace SpaceShooter
         public PlayerBullet() : base("blueLaser")
         {
             speed = 1075.13f;
-            velocity.X = speed;
+            RigidBody.Velocity.X = speed;
+
+            damage = 25;
         }
 
         public override void Update()
         {
-            base.Update();
-            if (Position.X - sprite.pivot.X > Game.Window.Width)
+            if (IsActive)
             {
+                if (Position.X - sprite.pivot.X > Game.Window.Width)
+                {
+                    BulletManager.RestoreBullet(this);
+                }
+            }
+        }
+
+        public override void OnCollide(GameObject other)
+        {
+            if(other is EnemyBullet)
+            {
+                BulletManager.RestoreBullet(this);
+            }
+            else if(other is Enemy)
+            {
+                ((Enemy)other).AddDamage(damage);
                 BulletManager.RestoreBullet(this);
             }
         }

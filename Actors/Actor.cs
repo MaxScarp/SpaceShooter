@@ -13,7 +13,20 @@ namespace SpaceShooter
         protected BulletType bulletType;
         protected Vector2 shootOffset;
 
-        public Actor(string texturePath) : base(texturePath) { }
+        protected int energy;
+        protected int maxEnergy;
+
+        public bool IsAlive { get { return energy > 0; } }
+
+        public Actor(string texturePath) : base(texturePath)
+        {
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
+
+            maxEnergy = 100;
+
+            Reset();
+        }
 
         protected virtual void Shoot()
         {
@@ -22,6 +35,23 @@ namespace SpaceShooter
             {
                 bullet.Shoot(Position + shootOffset);
             }
+        }
+
+        public void AddDamage(int dmg)
+        {
+            energy -= dmg;
+
+            if(!IsAlive)
+            {
+                OnDie();
+            }
+        }
+
+        protected virtual void OnDie() { }
+
+        public void Reset()
+        {
+            energy = maxEnergy;
         }
     }
 }

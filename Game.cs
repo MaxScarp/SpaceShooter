@@ -24,6 +24,7 @@ namespace SpaceShooter
         {
             //CANVAS
             window = new Window(1280, 720, "SPACE SHOOTER");
+            window.SetVSync(false);
 
             LoadAssets();
 
@@ -44,19 +45,30 @@ namespace SpaceShooter
         {
             while(window.IsOpened)
             {
+                window.SetTitle($"FPS: {1f / DeltaTime}");
+
                 //INPUT
                 Quit();
+
+                if (!player.IsAlive)
+                    return;
+                
                 player.Input();
 
                 //UPDATE
-                SpawnManager.Update();
                 background.Update();
+
+                PhysicsManager.Update();
+                SpawnManager.Update();
                 UpdateManager.Update();
+                
+                //COLLISIONS
+                PhysicsManager.CheckCollisions();
 
                 //DRAW
                 background.Draw();
-                DrawManager.Update();
-                PhysicsManager.CheckCollisions();
+
+                DrawManager.Draw();
 
                 window.Update();
             }

@@ -12,7 +12,6 @@ namespace SpaceShooter
         private static int enemyNumber;
 
         private static Queue<Enemy> enemies;
-        private static List<Enemy> activeEnemies;
 
         private static float nextSpawn;
 
@@ -21,7 +20,6 @@ namespace SpaceShooter
             enemyNumber = 10;
 
             enemies = new Queue<Enemy>(enemyNumber);
-            activeEnemies = new List<Enemy>();
 
             for (int i = 0; i < enemyNumber; i++)
             {
@@ -47,24 +45,17 @@ namespace SpaceShooter
             if(enemies.Count > 0)
             {
                 Enemy enemy = enemies.Dequeue();
-                enemy.RigidBody.IsActive = true;
-                activeEnemies.Add(enemy);
-                
-                enemy.Position = new Vector2(Game.Window.Width + enemy.Pivot.X, RandomGenerator.GetRandomInt((int)enemy.Pivot.Y, Game.Window.Height - (int)enemy.Pivot.Y));
+                enemy.IsActive = true;
+                enemy.Reset();
 
-                UpdateManager.AddItem(enemy);
-                DrawManager.AddItem(enemy);
+                enemy.Position = new Vector2(Game.Window.Width + enemy.Pivot.X, RandomGenerator.GetRandomInt((int)enemy.Pivot.Y, Game.Window.Height - (int)enemy.Pivot.Y));
             }
         }
 
         public static void RestoreEnemy(Enemy enemy)
         {
-            activeEnemies.Remove(enemy);
-            enemy.RigidBody.IsActive = false;
+            enemy.IsActive = false;
             enemies.Enqueue(enemy);
-
-            UpdateManager.RemoveItem(enemy);
-            DrawManager.RemoveItem(enemy);
         }
     }
 }

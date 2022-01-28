@@ -7,27 +7,37 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
+    enum RigidBodyType { Player = 1, PlayerBullet = 2, Enemy = 4, EnemyBullet = 8, PowerUp = 16 }
+
     class RigidBody
     {
         private GameObject gameObject;
         private Collider collider;
 
-        public bool IsCollisionAffected;
-        public bool IsActive;
+        protected uint collisionMask;
 
+        public RigidBodyType Type;
+
+        public Vector2 Velocity;
+
+        public bool IsCollisionAffected;
+        public bool IsActive { get { return gameObject.IsActive; } }
         public GameObject GameObject { get { return gameObject; } }
         public Collider Collider { set { collider = value; } }
-
-        public Vector2 Position { get { return gameObject.Position; } }
+        public Vector2 Position { get { return gameObject.Position; } set { gameObject.Position = value; } }
 
         public RigidBody(GameObject owner)
         {
             gameObject = owner;
 
             IsCollisionAffected = true;
-            IsActive = false;
 
             PhysicsManager.AddItem(this);
+        }
+
+        public void Update()
+        {
+            Position += Velocity * Game.DeltaTime;
         }
 
         public bool Collides(RigidBody other)

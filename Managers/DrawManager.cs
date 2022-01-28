@@ -30,7 +30,7 @@ namespace SpaceShooter
             items.Clear();
         }
 
-        public static void Update()
+        public static void Draw()
         {
             for (int i = 0; i < items.Count; i++)
             {

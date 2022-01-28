@@ -11,7 +11,6 @@ namespace SpaceShooter
     static class BulletManager
     {
         private static Queue<Bullet>[] bullets;
-        private static List<Bullet>[] activeBullets;
 
         public static void Init(int _playerBulletNum, int _enemyBulletNum)
         {
@@ -51,12 +50,6 @@ namespace SpaceShooter
                         break;
                 }
             }
-
-            activeBullets = new List<Bullet>[(int)BulletType.LAST];
-            for (int i = 0; i < activeBullets.Length; i++)
-            {
-                activeBullets[i] = new List<Bullet>();
-            }
         }
 
         public static Bullet GetBullet(BulletType type)
@@ -66,11 +59,7 @@ namespace SpaceShooter
             if(bullets[index].Count > 0)
             {
                 Bullet bullet = bullets[index].Dequeue();
-                bullet.RigidBody.IsActive = true;
-                activeBullets[index].Add(bullet);
-
-                UpdateManager.AddItem(bullet);
-                DrawManager.AddItem(bullet);
+                bullet.IsActive = true;
 
                 return bullet;
             }
@@ -82,12 +71,8 @@ namespace SpaceShooter
         {
             int index = bullet is PlayerBullet ? (int)BulletType.PlayerBullet : (int)BulletType.EnemyBullet;
 
-            activeBullets[index].Remove(bullet);
-            bullet.RigidBody.IsActive = false;
+            bullet.IsActive = false;
             bullets[index].Enqueue(bullet);
-
-            UpdateManager.RemoveItem(bullet);
-            DrawManager.RemoveItem(bullet);
         }
     }
 }

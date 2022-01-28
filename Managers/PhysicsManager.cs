@@ -30,6 +30,17 @@ namespace SpaceShooter
             items.Clear();
         }
 
+        public static void Update()
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if(items[i].IsActive)
+                {
+                    items[i].Update();
+                }
+            }
+        }
+
         public static void CheckCollisions()
         {
             for (int i = 0; i < items.Count - 1; i++)

@@ -13,10 +13,11 @@ namespace SpaceShooter
         protected Texture texture;
         protected Sprite sprite;
 
-        protected Vector2 velocity;
         protected float speed;
 
         public RigidBody RigidBody;
+
+        public bool IsActive;
 
         public Vector2 Position { get { return sprite.position; } set { sprite.position = value; } }
         public Vector2 Pivot { get { return sprite.pivot; } set { sprite.pivot = value; } }
@@ -35,18 +36,23 @@ namespace SpaceShooter
 
             HalfWidth = sprite.Width * 0.5f;
             HalfHeight = sprite.Height * 0.5f;
+
+            IsActive = false;
+
+            UpdateManager.AddItem(this);
+            DrawManager.AddItem(this);
         }
 
-        public virtual void Update()
-        {
-            Position += velocity * Game.DeltaTime;
-        }
+        public abstract void Update();
 
         public virtual void Draw()
         {
-            sprite.DrawTexture(texture);
+            if (IsActive)
+            {
+                sprite.DrawTexture(texture); 
+            }
         }
 
-        public abstract void OnCollide(GameObject other);
+        public virtual void OnCollide(GameObject other) { }
     }
 }
