@@ -8,6 +8,15 @@ namespace SpaceShooter
 {
     class FireGlobe : EnemyBullet
     {
-        public FireGlobe() : base("fireGlobe") { }
+        public FireGlobe() : base("fireGlobe")
+        {
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleColliderFor(this);
+        }
+
+        public override void OnCollide(GameObject other)
+        {
+            //throw new NotImplementedException();
+        }
     }
 }

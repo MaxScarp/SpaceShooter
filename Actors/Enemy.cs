@@ -22,6 +22,17 @@ namespace SpaceShooter
             bulletType = BulletType.EnemyBullet;
             shootOffset = new Vector2(-Pivot.X, Pivot.Y * 0.5f);
             nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
+
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleColliderFor(this);
+        }
+
+        public override void OnCollide(GameObject other)
+        {
+            if(other is PlayerBullet)
+            {
+                Console.WriteLine($"{GetType()} is colliding with {other.GetType()}");
+            }
         }
 
         public override void Update()

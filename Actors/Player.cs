@@ -20,8 +20,21 @@ namespace SpaceShooter
             bulletType = BulletType.PlayerBullet;
             shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);
 
+            IsActive = true;
+
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleColliderFor(this);
+
             UpdateManager.AddItem(this);
             DrawManager.AddItem(this);
+        }
+
+        public override void OnCollide(GameObject other)
+        {
+            if (other is EnemyBullet)
+            {
+                Console.WriteLine($"{GetType()} is colliding with {other.GetType()}");
+            }
         }
 
         public void Input()

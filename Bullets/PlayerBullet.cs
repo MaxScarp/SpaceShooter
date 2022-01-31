@@ -12,8 +12,16 @@ namespace SpaceShooter
     {
         public PlayerBullet() : base("blueLaser")
         {
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleColliderFor(this);
+
             speed = 1075.13f;
             velocity.X = speed;
+        }
+
+        public override void OnCollide(GameObject other)
+        {
+            //throw new NotImplementedException();
         }
 
         public override void Update()

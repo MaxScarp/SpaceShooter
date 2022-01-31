@@ -53,6 +53,8 @@ namespace SpaceShooter
                 background.Update();
                 UpdateManager.Update();
 
+                PhysicManager.CheckCollisions();
+
                 //DRAW
                 background.Draw();
                 DrawManager.Update();
