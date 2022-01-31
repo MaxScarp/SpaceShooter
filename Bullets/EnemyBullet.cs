@@ -16,6 +16,9 @@ namespace SpaceShooter
 
             speed = -950.13f;
             velocity.X = speed;
+
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleColliderFor(this);
         }
 
         public override void Update()

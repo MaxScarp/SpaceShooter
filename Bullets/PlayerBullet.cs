@@ -14,6 +14,9 @@ namespace SpaceShooter
         {
             speed = 1075.13f;
             velocity.X = speed;
+
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleColliderFor(this);
         }
 
         public override void Update()
@@ -22,6 +25,14 @@ namespace SpaceShooter
             if (Position.X - sprite.pivot.X > Game.Window.Width)
             {
                 BulletManager.RestoreBullet(this);
+            }
+        }
+
+        public override void OnCollide(GameObject other)
+        {
+            if(other is Enemy)
+            {
+                Console.WriteLine($"{GetType()} is colliding with {other.GetType()}");
             }
         }
     }

@@ -22,6 +22,9 @@ namespace SpaceShooter
             bulletType = BulletType.EnemyBullet;
             shootOffset = new Vector2(-Pivot.X, Pivot.Y * 0.5f);
             nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
+
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleColliderFor(this);
         }
 
         public override void Update()
@@ -40,6 +43,11 @@ namespace SpaceShooter
                 nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
                 Shoot();
             }
+        }
+
+        public override void OnCollide(GameObject gameObject)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

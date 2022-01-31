@@ -14,5 +14,13 @@ namespace SpaceShooter
         {
             sprite.DrawTexture(texture, 156, 227, (int)sprite.Width, (int)sprite.Height);
         }
+
+        public override void OnCollide(GameObject other)
+        {
+            if (other is Player)
+            {
+                Console.WriteLine($"{GetType()} is colliding with {other.GetType()}");
+            }
+        }
     }
 }

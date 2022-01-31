@@ -52,6 +52,9 @@
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Bullets\FireGlobe.cs" />
     <Compile Include="Bullets\RedLaser.cs" />
+    <Compile Include="CircleCollider.cs" />
+    <Compile Include="Collider.cs" />
+    <Compile Include="CollidersFactory.cs" />
     <Compile Include="Managers\DrawManager.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Background.cs" />
@@ -65,11 +68,13 @@
     <Compile Include="Managers\GfxManager.cs" />
     <Compile Include="Interfaces\I_Drawable.cs" />
     <Compile Include="Interfaces\I_Updatable.cs" />
+    <Compile Include="PhysicsManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomGenerator.cs" />
     <Compile Include="Managers\SpawnManager.cs" />
     <Compile Include="Managers\UpdateManager.cs" />
+    <Compile Include="RigidBody.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

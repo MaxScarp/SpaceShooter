@@ -9,5 +9,14 @@ namespace SpaceShooter
     class FireGlobe : EnemyBullet
     {
         public FireGlobe() : base("fireGlobe") { }
+
+        public override void OnCollide(GameObject other)
+        {
+            if (other is Player)
+            {
+                Console.WriteLine($"{GetType()} is colliding with {other.GetType()}");
+            }
+        }
     }
+
 }

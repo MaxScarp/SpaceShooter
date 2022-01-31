@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    class GameObject : I_Updatable, I_Drawable
+    abstract class GameObject : I_Updatable, I_Drawable
     {
         protected Texture texture;
         protected Sprite sprite;
@@ -16,8 +16,14 @@ namespace SpaceShooter
         protected Vector2 velocity;
         protected float speed;
 
+        public RigidBody RigidBody;
+
+        public bool IsActive;
+
         public Vector2 Position { get { return sprite.position; } set { sprite.position = value; } }
         public Vector2 Pivot { get { return sprite.pivot; } set { sprite.pivot = value; } }
+        public float HalfWidth { get; private set; }
+        public float HalfHeight { get; private set; }
 
         public GameObject(string textureName, int spriteWidth = 0, int spriteHeight = 0)
         {
@@ -28,6 +34,11 @@ namespace SpaceShooter
 
             sprite = new Sprite(spriteW, spriteH);
             Pivot = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
+
+            HalfWidth = sprite.Width * 0.5f;
+            HalfHeight = sprite.Height * 0.5f;
+
+            IsActive = false;
         }
 
         public virtual void Update()
@@ -39,5 +50,7 @@ namespace SpaceShooter
         {
             sprite.DrawTexture(texture);
         }
+
+        public abstract void OnCollide(GameObject gameObject);
     }
 }

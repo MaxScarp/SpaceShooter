@@ -20,6 +20,11 @@ namespace SpaceShooter
             bulletType = BulletType.PlayerBullet;
             shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);
 
+            RigidBody = new RigidBody(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleColliderFor(this);
+
+            IsActive = true;
+
             UpdateManager.AddItem(this);
             DrawManager.AddItem(this);
         }
@@ -87,6 +92,11 @@ namespace SpaceShooter
             {
                 velocity = velocity.Normalized() * speed;
             }
+        }
+
+        public override void OnCollide(GameObject gameObject)
+        {
+            //throw new NotImplementedException();
         }
     }
 }
