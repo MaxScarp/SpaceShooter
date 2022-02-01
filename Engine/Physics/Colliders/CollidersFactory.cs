@@ -8,7 +8,15 @@ namespace SpaceShooter
 {
     static class CollidersFactory
     {
-        public static Collider CreateCirlceFor(GameObject obj, bool innerCircle = true)
+        public static BoxCollider CreateBoxFor(GameObject obj, int width, int height)
+        {
+            float halfWidth = width * 0.5f;
+            float halfHeight = height * 0.5f;
+
+            return new BoxCollider(obj.RigidBody, halfWidth, halfHeight);
+        }
+
+        public static CircleCollider CreateCirlceFor(GameObject obj, bool innerCircle = true)
         {
             float radius;
 

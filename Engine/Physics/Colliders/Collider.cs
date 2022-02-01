@@ -20,8 +20,10 @@ namespace SpaceShooter
             offset = Vector2.Zero;
         }
 
+        public abstract bool Contains(Vector2 point);
         public abstract bool Collides(Collider collider);
         public abstract bool Collides(CircleCollider collider);
+        public abstract bool Collides(BoxCollider collider);
 
     }
 }

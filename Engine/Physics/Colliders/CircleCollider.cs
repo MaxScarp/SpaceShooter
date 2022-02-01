@@ -11,9 +11,16 @@ namespace SpaceShooter
     {
         private float radius;
 
+        public float Radius { get { return radius; } }
+
         public CircleCollider(RigidBody owner, float radius) : base(owner)
         {
             this.radius = radius;
+        }
+
+        public override bool Collides(BoxCollider other)
+        {
+            return other.Collides(this);
         }
 
         public override bool Collides(Collider other)
@@ -25,6 +32,12 @@ namespace SpaceShooter
         {
             Vector2 dist = other.Position - Position;
             return dist.LengthSquared <= Math.Pow(other.radius + radius, 2);
+        }
+
+        public override bool Contains(Vector2 point)
+        {
+            Vector2 dist = point - Position;
+            return dist.LengthSquared <= Math.Pow(radius, 2);
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Bullets\FireGlobe.cs" />
     <Compile Include="Bullets\RedLaser.cs" />
+    <Compile Include="Engine\Physics\Colliders\BoxCollider.cs" />
     <Compile Include="Engine\Physics\Colliders\CircleCollider.cs" />
     <Compile Include="Engine\Physics\Colliders\Collider.cs" />
     <Compile Include="Engine\Physics\Colliders\CollidersFactory.cs" />
