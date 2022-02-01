@@ -51,10 +51,19 @@ namespace SpaceShooter
                     {
                         if(items[j].IsActive && items[j].IsCollisionAffected)
                         {
-                            if(items[i].Collides(items[j]))
+                            bool firtsCheck = items[i].CollisionTypeMatches(items[j].Type);
+                            bool secondCheck = items[j].CollisionTypeMatches(items[i].Type);
+
+                            if((firtsCheck || secondCheck) && items[i].Collides(items[j]))
                             {
-                                items[i].GameObject.OnCollide(items[j].GameObject);
-                                items[j].GameObject.OnCollide(items[i].GameObject);
+                                if(firtsCheck)
+                                {
+                                    items[i].GameObject.OnCollide(items[j].GameObject);
+                                }
+                                if(secondCheck)
+                                {
+                                    items[j].GameObject.OnCollide(items[i].GameObject);
+                                }
                             }
                         }
                     }

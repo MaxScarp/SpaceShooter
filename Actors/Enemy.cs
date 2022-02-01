@@ -14,6 +14,9 @@ namespace SpaceShooter
 
         public Enemy() : base("enemy")
         {
+            RigidBody.Type = RigidBodyType.Enemy;
+            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
+
             sprite.FlipX = true;
 
             speed = -475.0f;
@@ -22,6 +25,7 @@ namespace SpaceShooter
             bulletType = BulletType.EnemyBullet;
             shootOffset = new Vector2(-Pivot.X, Pivot.Y * 0.5f);
             nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
+
         }
 
         public override void Update()

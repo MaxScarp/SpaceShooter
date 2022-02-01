@@ -21,7 +21,6 @@ namespace SpaceShooter
         public Actor(string texturePath) : base(texturePath)
         {
             RigidBody = new RigidBody(this);
-            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
 
             maxEnergy = 100;
 

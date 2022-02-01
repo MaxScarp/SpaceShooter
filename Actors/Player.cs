@@ -14,13 +14,17 @@ namespace SpaceShooter
 
         public Player() : base("player")
         {
-            IsActive = true;
+            RigidBody.Type = RigidBodyType.Player;
+            RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
+            RigidBody.AddCollisionType(RigidBodyType.Enemy);
 
             speed = 455.0f;
 
             shot = false;
             bulletType = BulletType.PlayerBullet;
             shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);
+
+            IsActive = true;
         }
 
         public void Input()
@@ -89,11 +93,8 @@ namespace SpaceShooter
 
         public override void OnCollide(GameObject other)
         {
-            if (other is Enemy)
-            {
-                SpawnManager.RestoreEnemy((Enemy)other);
-                AddDamage(100);
-            }
+            SpawnManager.RestoreEnemy((Enemy)other);
+            AddDamage(100);
         }
     }
 }

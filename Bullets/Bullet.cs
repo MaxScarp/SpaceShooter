@@ -17,7 +17,6 @@ namespace SpaceShooter
         public Bullet(string textureName, int spriteWidth = 0, int spriteHeight = 0) : base(textureName, spriteWidth, spriteHeight)
         {
             RigidBody = new RigidBody(this);
-            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
         }
 
         public void Shoot(Vector2 shootPos)

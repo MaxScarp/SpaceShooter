@@ -12,6 +12,10 @@ namespace SpaceShooter
     {
         public PlayerBullet() : base("blueLaser")
         {
+            RigidBody.Type = RigidBodyType.PlayerBullet;
+            RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
+            RigidBody.AddCollisionType(RigidBodyType.EnemyBullet | RigidBodyType.Enemy);
+
             speed = 1075.13f;
             RigidBody.Velocity.X = speed;
 

@@ -8,12 +8,9 @@ namespace SpaceShooter
 {
     static class CollidersFactory
     {
-        public static BoxCollider CreateBoxFor(GameObject obj, int width, int height)
+        public static BoxCollider CreateBoxFor(GameObject obj)
         {
-            float halfWidth = width * 0.5f;
-            float halfHeight = height * 0.5f;
-
-            return new BoxCollider(obj.RigidBody, halfWidth, halfHeight);
+            return new BoxCollider(obj.RigidBody, obj.HalfWidth, obj.HalfHeight);
         }
 
         public static CircleCollider CreateCirlceFor(GameObject obj, bool innerCircle = true)

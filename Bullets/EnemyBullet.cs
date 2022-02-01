@@ -12,6 +12,9 @@ namespace SpaceShooter
     {
         public EnemyBullet(string textureName, int spriteWidth = 0, int spriteHeight = 0) : base(textureName, spriteWidth, spriteHeight)
         {
+            RigidBody.Type = RigidBodyType.EnemyBullet;
+            RigidBody.AddCollisionType(RigidBodyType.PlayerBullet | RigidBodyType.Player);
+
             sprite.FlipX = true;
 
             speed = -950.13f;

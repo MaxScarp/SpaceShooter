@@ -10,6 +10,8 @@ namespace SpaceShooter
     {
         public RedLaser() : base("beams", 74, 46)
         {
+            RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
+
             damage = 25;
         }
 

@@ -44,5 +44,15 @@ namespace SpaceShooter
         {
             return collider.Collides(other.collider);
         }
+
+        public void AddCollisionType(RigidBodyType type)
+        {
+            collisionMask |= (uint)type;
+        }
+
+        public bool CollisionTypeMatches(RigidBodyType type)
+        {
+            return ((uint)type & collisionMask) != 0;
+        }
     }
 }
