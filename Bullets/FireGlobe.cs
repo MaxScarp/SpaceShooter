@@ -8,6 +8,9 @@ namespace SpaceShooter
 {
     class FireGlobe : EnemyBullet
     {
-        public FireGlobe() : base("fireGlobe") { }
+        public FireGlobe() : base("fireGlobe")
+        {
+            RigidBody.Collider = CollidersFactory.CreateCircleFor(this);
+        }
     }
 }

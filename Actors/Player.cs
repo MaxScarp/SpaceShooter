@@ -22,6 +22,10 @@ namespace SpaceShooter
 
             UpdateManager.AddItem(this);
             DrawManager.AddItem(this);
+
+            IsActive = true;
+
+            RigidBody.Collider = CollidersFactory.CreateCircleFor(this);
         }
 
         public void Input()

@@ -13,7 +13,10 @@ namespace SpaceShooter
         protected BulletType bulletType;
         protected Vector2 shootOffset;
 
-        public Actor(string texturePath) : base(texturePath) { }
+        public Actor(string texturePath) : base(texturePath)
+        {
+            RigidBody = new RigidBody(this);
+        }
 
         protected virtual void Shoot()
         {

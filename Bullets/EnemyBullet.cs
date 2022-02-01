@@ -26,5 +26,13 @@ namespace SpaceShooter
                 BulletManager.RestoreBullet(this);
             }
         }
+
+        public override void OnCollide(GameObject other)
+        {
+            if(other is Player)
+            {
+                Console.WriteLine($"{GetType()} is colliding with {other.GetType()}");
+            }
+        }
     }
 }

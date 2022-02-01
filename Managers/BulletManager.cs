@@ -66,6 +66,7 @@ namespace SpaceShooter
             if(bullets[index].Count > 0)
             {
                 Bullet bullet = bullets[index].Dequeue();
+                bullet.IsActive = true;
                 activeBullets[index].Add(bullet);
 
                 UpdateManager.AddItem(bullet);
@@ -81,6 +82,7 @@ namespace SpaceShooter
         {
             int index = bullet is PlayerBullet ? (int)BulletType.PlayerBullet : (int)BulletType.EnemyBullet;
 
+            bullet.IsActive = false;
             activeBullets[index].Remove(bullet);
             bullets[index].Enqueue(bullet);
 

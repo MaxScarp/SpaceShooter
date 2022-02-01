@@ -22,6 +22,8 @@ namespace SpaceShooter
             bulletType = BulletType.EnemyBullet;
             shootOffset = new Vector2(-Pivot.X, Pivot.Y * 0.5f);
             nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
+
+            RigidBody.Collider = CollidersFactory.CreateCircleFor(this);
         }
 
         public override void Update()

@@ -8,7 +8,10 @@ namespace SpaceShooter
 {
     class RedLaser : EnemyBullet
     {
-        public RedLaser() : base("beams", 74, 46) { }
+        public RedLaser() : base("beams", 74, 46)
+        {
+            RigidBody.Collider = CollidersFactory.CreateCircleFor(this);
+        }
 
         public override void Draw()
         {

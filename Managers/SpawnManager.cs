@@ -47,6 +47,7 @@ namespace SpaceShooter
             if(enemies.Count > 0)
             {
                 Enemy enemy = enemies.Dequeue();
+                enemy.IsActive = true;
                 activeEnemies.Add(enemy);
                 
                 enemy.Position = new Vector2(Game.Window.Width + enemy.Pivot.X, RandomGenerator.GetRandomInt((int)enemy.Pivot.Y, Game.Window.Height - (int)enemy.Pivot.Y));
@@ -58,6 +59,7 @@ namespace SpaceShooter
 
         public static void RestoreEnemy(Enemy enemy)
         {
+            enemy.IsActive = false;
             activeEnemies.Remove(enemy);
             enemies.Enqueue(enemy);
 
