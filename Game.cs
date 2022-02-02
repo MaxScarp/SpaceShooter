@@ -86,9 +86,13 @@ namespace SpaceShooter
         {
             GfxManager.AddTexture("player", "Assets/player_ship.png");
             GfxManager.AddTexture("enemy", "Assets/enemy_ship.png");
+
             GfxManager.AddTexture("blueLaser", "Assets/blueLaser.png");
             GfxManager.AddTexture("beams", "Assets/beams.png");
             GfxManager.AddTexture("fireGlobe", "Assets/fireGlobe.png");
+
+            GfxManager.AddTexture("frameBar", "Assets/loadingBar_frame.png");
+            GfxManager.AddTexture("bar", "Assets/loadingBar_bar.png");
         }
     }
 }

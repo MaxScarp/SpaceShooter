@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    abstract class GameObject : I_Updatable, I_Drawable
+    class GameObject : I_Updatable, I_Drawable
     {
         protected Texture texture;
         protected Sprite sprite;
@@ -19,7 +19,7 @@ namespace SpaceShooter
 
         public bool IsActive;
 
-        public Vector2 Position { get { return sprite.position; } set { sprite.position = value; } }
+        public virtual Vector2 Position { get { return sprite.position; } set { sprite.position = value; } }
         public Vector2 Pivot { get { return sprite.pivot; } set { sprite.pivot = value; } }
         public float HalfWidth { get; private set; }
         public float HalfHeight { get; private set; }
@@ -43,7 +43,7 @@ namespace SpaceShooter
             DrawManager.AddItem(this);
         }
 
-        public abstract void Update();
+        public virtual void Update() { }
 
         public virtual void Draw()
         {

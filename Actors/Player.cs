@@ -10,8 +10,11 @@ namespace SpaceShooter
 {
     class Player : Actor
     {
-        private bool shot;
+        private ProgressBar energyBar;
 
+        public override int Energy { get => base.Energy; set { base.Energy = value; energyBar.Scale((float)value / maxEnergy); } }
+
+        private bool shot;
         public Player() : base("player")
         {
             RigidBody.Type = RigidBodyType.Player;
@@ -24,7 +27,12 @@ namespace SpaceShooter
             bulletType = BulletType.PlayerBullet;
             shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);
 
+            energyBar = new ProgressBar("frameBar", "bar", new Vector2(4.0f, 4.0f));
+            energyBar.Position = new Vector2(60.0f, 50.0f);
+
             IsActive = true;
+
+            Reset();
         }
 
         public void Input()

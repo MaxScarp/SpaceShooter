@@ -16,15 +16,14 @@ namespace SpaceShooter
         protected int energy;
         protected int maxEnergy;
 
-        public bool IsAlive { get { return energy > 0; } }
+        public virtual int Energy { get { return energy; } set { energy = MathHelper.Clamp(value, 0, maxEnergy); } }
+        public bool IsAlive { get { return Energy > 0; } }
 
         public Actor(string texturePath) : base(texturePath)
         {
             RigidBody = new RigidBody(this);
 
             maxEnergy = 100;
-
-            Reset();
         }
 
         protected virtual void Shoot()
@@ -38,7 +37,7 @@ namespace SpaceShooter
 
         public void AddDamage(int dmg)
         {
-            energy -= dmg;
+            Energy -= dmg;
 
             if(!IsAlive)
             {
@@ -47,10 +46,10 @@ namespace SpaceShooter
         }
 
         protected virtual void OnDie() { }
-
+        
         public void Reset()
         {
-            energy = maxEnergy;
+            Energy = maxEnergy;
         }
     }
 }
