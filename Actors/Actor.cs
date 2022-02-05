@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
+    enum WeaponType { Default, Triple }
+
     abstract class Actor : GameObject
     {
+        protected WeaponType weaponType;
+        
         protected BulletType bulletType;
         protected Vector2 shootOffset;
+        protected float tripleShootAngle;
 
         protected int energy;
         protected int maxEnergy;
@@ -25,14 +30,42 @@ namespace SpaceShooter
 
             maxEnergy = 100;
         }
+        
+        public void ChangeWeapon(WeaponType newWeapon)
+        {
+            weaponType = newWeapon;
+        }
 
         protected virtual void Shoot()
         {
-            Bullet bullet = BulletManager.GetBullet(bulletType);
-            if (bullet != null)
+            Bullet bullet;
+
+            switch (weaponType)
             {
-                bullet.Shoot(Position + shootOffset);
+                case WeaponType.Default:
+                    bullet = BulletManager.GetBullet(bulletType);
+                    if(bullet != null)
+                    {
+                        bullet.Shoot(Position + shootOffset, new Vector2(bullet.Speed, 0.0f));
+                    }
+                    break;
+                case WeaponType.Triple:
+                    float x = (float)Math.Cos(tripleShootAngle);
+                    float y = (float)Math.Sin(tripleShootAngle);
+                    Vector2 bulletDir = new Vector2(x, y);
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        bullet = BulletManager.GetBullet(bulletType);
+                        if(bullet != null)
+                        {
+                            bullet.Shoot(Position + shootOffset, bulletDir.Normalized() * bullet.Speed);
+                            bulletDir.Y -= y;
+                        }
+                    }
+                    break;
             }
+
         }
 
         public void AddDamage(int dmg)

@@ -19,8 +19,8 @@ namespace SpaceShooter
 
             nextSpawn = RandomGenerator.GetRandomInt(8, 20);
 
-            //items.Add(new BatteryPowerUp());
-            //items.Add(new TriplePowerUp());
+            items.Add(new BatteryPowerUp());
+            items.Add(new TriplePowerUp());
         }
 
         public static void Update()

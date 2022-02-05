@@ -21,6 +21,7 @@ namespace SpaceShooter
 
         public virtual Vector2 Position { get { return sprite.position; } set { sprite.position = value; } }
         public Vector2 Pivot { get { return sprite.pivot; } set { sprite.pivot = value; } }
+        public float Speed { get { return speed; } }
         public float HalfWidth { get; private set; }
         public float HalfHeight { get; private set; }
 

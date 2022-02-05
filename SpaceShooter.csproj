@@ -56,6 +56,7 @@
     <Compile Include="Engine\Physics\Colliders\CircleCollider.cs" />
     <Compile Include="Engine\Physics\Colliders\Collider.cs" />
     <Compile Include="Engine\Physics\Colliders\CollidersFactory.cs" />
+    <Compile Include="Engine\Physics\Colliders\CompoundCollider.cs" />
     <Compile Include="Managers\DrawManager.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Background.cs" />
@@ -70,6 +71,11 @@
     <Compile Include="Engine\Interfaces\I_Drawable.cs" />
     <Compile Include="Engine\Interfaces\I_Updatable.cs" />
     <Compile Include="Managers\PhysicsManager.cs" />
+    <Compile Include="Managers\PowerUpManager.cs" />
+    <Compile Include="PowerUps\BatteryPowerUp.cs" />
+    <Compile Include="PowerUps\PowerUp.cs" />
+    <Compile Include="PowerUps\TimedPowerUp.cs" />
+    <Compile Include="PowerUps\TriplePowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\ProgressBar.cs" />

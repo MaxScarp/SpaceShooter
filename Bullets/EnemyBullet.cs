@@ -18,7 +18,6 @@ namespace SpaceShooter
             sprite.FlipX = true;
 
             speed = -950.13f;
-            RigidBody.Velocity.X = speed;
         }
 
         public override void Update()

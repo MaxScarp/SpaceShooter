@@ -22,7 +22,7 @@ namespace SpaceShooter
             RigidBody.AddCollisionType(RigidBodyType.Enemy);
 
             speed = 455.0f;
-
+            tripleShootAngle = MathHelper.DegreesToRadians(15.0f);
             shot = false;
             bulletType = BulletType.PlayerBullet;
             shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);

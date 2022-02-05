@@ -19,9 +19,10 @@ namespace SpaceShooter
             RigidBody = new RigidBody(this);
         }
 
-        public void Shoot(Vector2 shootPos)
+        public void Shoot(Vector2 shootPos, Vector2 shootVel)
         {
             Position = shootPos;
+            RigidBody.Velocity = shootVel;
         }
     }
 }

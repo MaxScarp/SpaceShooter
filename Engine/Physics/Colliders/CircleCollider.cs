@@ -39,5 +39,10 @@ namespace SpaceShooter
             Vector2 dist = point - Position;
             return dist.LengthSquared <= Math.Pow(radius, 2);
         }
+
+        public override bool Collides(CompoundCollider other)
+        {
+            return other.Collides(this);
+        }
     }
 }

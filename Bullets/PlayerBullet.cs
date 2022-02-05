@@ -17,7 +17,6 @@ namespace SpaceShooter
             RigidBody.AddCollisionType(RigidBodyType.EnemyBullet | RigidBodyType.Enemy);
 
             speed = 1075.13f;
-            RigidBody.Velocity.X = speed;
 
             damage = 25;
         }

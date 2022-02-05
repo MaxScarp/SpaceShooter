@@ -29,7 +29,6 @@ namespace SpaceShooter
             return
                 (Math.Abs(deltaX) <= other.halfWidth + halfWidth) &&
                 (Math.Abs(deltaY) <= other.halfHeight + halfHeight);
-
         }
 
         public override bool Collides(Collider other)
@@ -52,6 +51,11 @@ namespace SpaceShooter
                 point.X <= Position.X + halfWidth &&
                 point.Y >= Position.Y - halfHeight &&
                 point.Y <= Position.Y + halfHeight;
+        }
+
+        public override bool Collides(CompoundCollider other)
+        {
+            return other.Collides(this);
         }
     }
 }

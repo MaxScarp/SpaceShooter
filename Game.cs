@@ -35,10 +35,11 @@ namespace SpaceShooter
             player.Position = new Vector2(100, window.Height * 0.5f);
 
             //MANAGERS
-            playerNumBullets = 10;
+            playerNumBullets = 20;
             enemyNumBullets = 16;
             BulletManager.Init(playerNumBullets, enemyNumBullets);
             SpawnManager.Init();
+            PowerUpManager.Init();
         }
 
         public static void Play()
@@ -61,6 +62,7 @@ namespace SpaceShooter
                 PhysicsManager.Update();
                 SpawnManager.Update();
                 UpdateManager.Update();
+                PowerUpManager.Update();
                 
                 //COLLISIONS
                 PhysicsManager.CheckCollisions();
@@ -93,6 +95,9 @@ namespace SpaceShooter
 
             GfxManager.AddTexture("frameBar", "Assets/loadingBar_frame.png");
             GfxManager.AddTexture("bar", "Assets/loadingBar_bar.png");
+
+            GfxManager.AddTexture("battery", "Assets/powerUp_battery.png");
+            GfxManager.AddTexture("triple", "Assets/powerUp_triple.png");
         }
     }
 }

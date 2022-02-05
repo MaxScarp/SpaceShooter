@@ -24,6 +24,7 @@ namespace SpaceShooter
         public abstract bool Collides(Collider collider);
         public abstract bool Collides(CircleCollider collider);
         public abstract bool Collides(BoxCollider collider);
+        public abstract bool Collides(CompoundCollider collider);
 
     }
 }
