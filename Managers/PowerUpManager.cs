@@ -60,5 +60,17 @@ namespace SpaceShooter
         {
             items.Clear();
         }
+
+        public static void StopSpawningEnergyPowerUp()
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if(items[i].GetType() == typeof(BatteryPowerUp))
+                {
+                    items.RemoveAt(i);
+                    items.Add(new TriplePowerUp());
+                }
+            }
+        }
     }
 }

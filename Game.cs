@@ -37,6 +37,7 @@ namespace SpaceShooter
             //MANAGERS
             playerNumBullets = 20;
             enemyNumBullets = 16;
+            GameManager.Init(background);
             BulletManager.Init(playerNumBullets, enemyNumBullets);
             SpawnManager.Init();
             PowerUpManager.Init();
@@ -57,6 +58,8 @@ namespace SpaceShooter
                 player.Input();
 
                 //UPDATE
+                GameManager.Update();
+
                 background.Update();
 
                 PhysicsManager.Update();
@@ -88,6 +91,7 @@ namespace SpaceShooter
         {
             GfxManager.AddTexture("player", "Assets/player_ship.png");
             GfxManager.AddTexture("enemy", "Assets/enemy_ship.png");
+            GfxManager.AddTexture("boss", "Assets/big_ship.png");
 
             GfxManager.AddTexture("blueLaser", "Assets/blueLaser.png");
             GfxManager.AddTexture("beams", "Assets/beams.png");

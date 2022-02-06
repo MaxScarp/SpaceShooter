@@ -27,8 +27,6 @@ namespace SpaceShooter
         public Actor(string texturePath) : base(texturePath)
         {
             RigidBody = new RigidBody(this);
-
-            maxEnergy = 100;
         }
         
         public void ChangeWeapon(WeaponType newWeapon)

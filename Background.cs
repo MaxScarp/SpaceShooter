@@ -17,6 +17,8 @@ namespace SpaceShooter
         private Vector2 velocity;
         private float speed;
 
+        private bool isStopped;
+
         public Background()
         {
             texture = new Texture("Assets/spaceBg.png");
@@ -25,24 +27,34 @@ namespace SpaceShooter
 
             speed = -275.0f;
             velocity.X = speed;
+
+            isStopped = false;
         }
 
         public void Update()
         {
-            head.position.X += velocity.X * Game.DeltaTime;
-
-            if (head.position.X <= -head.Width)
+            if (!isStopped)
             {
-                head.position.X += head.Width;
-            }
+                head.position.X += velocity.X * Game.DeltaTime;
 
-            tail.position.X = head.position.X + head.Width;
+                if (head.position.X <= -head.Width)
+                {
+                    head.position.X += head.Width;
+                }
+
+                tail.position.X = head.position.X + head.Width; 
+            }
         }
 
         public void Draw()
         {
             head.DrawTexture(texture);
             tail.DrawTexture(texture);
+        }
+
+        public void StopScrolling()
+        {
+            isStopped = true;
         }
     }
 }

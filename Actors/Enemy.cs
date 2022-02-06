@@ -8,24 +8,16 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    class Enemy : Actor
+    abstract class Enemy : Actor
     {
-        private float nextShoot;
+        protected float nextShoot;
 
-        public Enemy() : base("enemy")
+        public Enemy(string textureName) : base(textureName)
         {
-            RigidBody.Type = RigidBodyType.Enemy;
-            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
-
             sprite.FlipX = true;
-
-            speed = -475.0f;
-            RigidBody.Velocity.X = speed;
-
+            RigidBody.Type = RigidBodyType.Enemy;
             bulletType = BulletType.EnemyBullet;
-            shootOffset = new Vector2(-Pivot.X, Pivot.Y * 0.5f);
-            nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
-
+            maxEnergy = 50;
         }
 
         public override void Update()

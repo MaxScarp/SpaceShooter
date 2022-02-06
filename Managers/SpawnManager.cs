@@ -10,10 +10,10 @@ namespace SpaceShooter
     static class SpawnManager
     {
         private static int enemyNumber;
-
         private static Queue<Enemy> enemies;
-
+        
         private static float nextSpawn;
+        private static bool isStopped;
 
         public static void Init()
         {
@@ -23,20 +23,25 @@ namespace SpaceShooter
 
             for (int i = 0; i < enemyNumber; i++)
             {
-                enemies.Enqueue(new Enemy());
+                enemies.Enqueue(new EnemyBase());
             }
 
             nextSpawn = RandomGenerator.GetRandomInt(1, 3);
+
+            isStopped = false;
         }
 
         public static void Update()
         {
-            nextSpawn -= Game.Window.DeltaTime;
-
-            if(nextSpawn <= 0)
+            if (!isStopped)
             {
-                nextSpawn = RandomGenerator.GetRandomInt(1, 3);
-                SpawnEnemy();
+                nextSpawn -= Game.Window.DeltaTime;
+
+                if (nextSpawn <= 0)
+                {
+                    nextSpawn = RandomGenerator.GetRandomInt(1, 3);
+                    SpawnEnemy();
+                } 
             }
         }
 
@@ -56,6 +61,20 @@ namespace SpaceShooter
         {
             enemy.IsActive = false;
             enemies.Enqueue(enemy);
+        }
+
+        public static void StopSpawning()
+        {
+            isStopped = true;
+        }
+
+        public static void SpawnBoss()
+        {
+            EnemyBoss boss = new EnemyBoss();
+            boss.IsActive = true;
+            boss.Reset();
+
+            boss.Position = new Vector2(Game.Window.Width + boss.HalfWidth, Game.Window.Height * 0.5f);
         }
     }
 }

@@ -21,6 +21,7 @@ namespace SpaceShooter
         public Vector2 Velocity;
 
         public bool IsCollisionAffected;
+
         public bool IsActive { get { return gameObject.IsActive; } }
         public GameObject GameObject { get { return gameObject; } }
         public Collider Collider { set { collider = value; } }
@@ -37,7 +38,7 @@ namespace SpaceShooter
 
         public void Update()
         {
-            Position += Velocity * Game.DeltaTime;
+            Position += Velocity * Game.DeltaTime; 
         }
 
         public bool Collides(RigidBody other)

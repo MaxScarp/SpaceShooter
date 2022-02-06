@@ -32,6 +32,7 @@ namespace SpaceShooter
 
             IsActive = true;
 
+            maxEnergy = 100;
             Reset();
         }
 
