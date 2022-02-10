@@ -16,6 +16,8 @@ namespace SpaceShooter
         public CircleCollider(RigidBody owner, float radius) : base(owner)
         {
             this.radius = radius;
+
+            DebugManager.AddItem(this);
         }
 
         public override bool Collides(BoxCollider other)

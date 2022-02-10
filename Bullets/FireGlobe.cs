@@ -11,7 +11,6 @@ namespace SpaceShooter
         public FireGlobe() : base("fireGlobe") 
         {
             RigidBody.Collider = CollidersFactory.CreateCircleFor(this);
-            DebugManager.AddItem(RigidBody.Collider);
 
             damage = 50;
         }

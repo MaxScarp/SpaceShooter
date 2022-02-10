@@ -74,5 +74,13 @@ namespace SpaceShooter
             bullet.IsActive = false;
             bullets[index].Enqueue(bullet);
         }
+
+        public static void ClearAll()
+        {
+            for (int i = 0; i < bullets.Length; i++)
+            {
+                bullets[i].Clear();
+            }
+        }
     }
 }

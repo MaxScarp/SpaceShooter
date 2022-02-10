@@ -37,7 +37,6 @@ namespace SpaceShooter
 
             RigidBody.Collider.Offset = compound.Offset;
             RigidBody.Collider = compound;
-            DebugManager.AddItem(RigidBody.Collider);
 
             speed = -150.0f;
             RigidBody.Velocity.X = speed;

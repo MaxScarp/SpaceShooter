@@ -14,7 +14,6 @@ namespace SpaceShooter
             Type = EnemyType.Base;
 
             RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
-            DebugManager.AddItem(RigidBody.Collider);
 
             speed = -475.0f;
             RigidBody.Velocity.X = speed;

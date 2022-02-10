@@ -11,14 +11,10 @@ namespace SpaceShooter
     static class Game
     {
         private static Window window;
-        private static Background background;
-        private static Player player;
-
-        private static int playerNumBullets;
-        private static int enemyNumBullets;
 
         public static Window Window { get { return window; } }
         public static float DeltaTime { get { return window.DeltaTime; } }
+        public static Scene CurrentScene { get; private set; }
 
         public static void Init()
         {
@@ -26,84 +22,52 @@ namespace SpaceShooter
             window = new Window(1280, 720, "SPACE SHOOTER");
             window.SetVSync(false);
 
-            LoadAssets();
+            //SCENES
+            TitleScene titleScene = new TitleScene("Assets/aivBG.png");
+            PlayScene playScene = new PlayScene();
+            GameOverScene gameOverScene = new GameOverScene();
 
-            background = new Background();
+            titleScene.NextScene = playScene;
+            playScene.NextScene = gameOverScene;
+            gameOverScene.NextScene = titleScene;
 
-            //PLAYER
-            player = new Player();
-            player.Position = new Vector2(100, window.Height * 0.5f);
-
-            //MANAGERS
-            playerNumBullets = 20;
-            enemyNumBullets = 16;
-            GameManager.Init(background);
-            BulletManager.Init(playerNumBullets, enemyNumBullets);
-            SpawnManager.Init();
-            PowerUpManager.Init();
+            CurrentScene = titleScene;
         }
 
         public static void Play()
         {
+            CurrentScene.Start();
+
             while(window.IsOpened)
             {
                 window.SetTitle($"FPS: {1.0f / DeltaTime}");
 
-                //INPUT
-                Quit();
+                if(!CurrentScene.IsPlaying)
+                {
+                    Scene nextScene = CurrentScene.OnExit();
 
-                if (!player.IsAlive)
-                    return;
-                
-                player.Input();
+                    if(nextScene != null)
+                    {
+                        CurrentScene = nextScene;
+                        CurrentScene.Start();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                //INPUT
+                CurrentScene.Input();
 
                 //UPDATE
-                GameManager.Update();
-
-                background.Update();
-
-                PhysicsManager.Update();
-                SpawnManager.Update();
-                UpdateManager.Update();
-                PowerUpManager.Update();
-                
-                //COLLISIONS
-                PhysicsManager.CheckCollisions();
+                CurrentScene.Update();
 
                 //DRAW
-                background.Draw();
-
-                DrawManager.Draw();
-                DebugManager.Draw();
+                CurrentScene.Draw();
 
                 window.Update();
             }
-        }
-
-        private static void Quit()
-        {
-            if (window.GetKey(KeyCode.Esc))
-            {
-                window.Exit();
-            }
-        }
-
-        private static void LoadAssets()
-        {
-            GfxManager.AddTexture("player", "Assets/player_ship.png");
-            GfxManager.AddTexture("enemy", "Assets/enemy_ship.png");
-            GfxManager.AddTexture("enemyRed", "Assets/redEnemy_ship.png");
-            GfxManager.AddTexture("boss", "Assets/big_ship.png");
-
-            GfxManager.AddTexture("blueLaser", "Assets/blueLaser.png");
-            GfxManager.AddTexture("beams", "Assets/beams.png");
-            GfxManager.AddTexture("fireGlobe", "Assets/fireGlobe.png");
-
-            GfxManager.AddTexture("frameBar", "Assets/loadingBar_frame.png");
-            GfxManager.AddTexture("bar", "Assets/loadingBar_bar.png");
-
-            GfxManager.AddTexture("battery", "Assets/powerUp_battery.png");
-            GfxManager.AddTexture("triple", "Assets/powerUp_triple.png");
         }
     }
 }

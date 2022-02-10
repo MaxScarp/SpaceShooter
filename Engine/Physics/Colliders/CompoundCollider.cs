@@ -26,6 +26,8 @@ namespace SpaceShooter
             {
                 Offset = new Vector2(((BoxCollider)boundingCollider).Width * -0.5f, ((BoxCollider)boundingCollider).Height * -0.5f);
             }
+
+            DebugManager.AddItem(boundingCollider);
         }
 
         public void AddCollider(Collider collider)

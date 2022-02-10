@@ -88,6 +88,11 @@ namespace SpaceShooter
             isStopped = true;
         }
 
+        public static void StartSpawning()
+        {
+            isStopped = false;
+        }
+
         public static void SpawnBoss()
         {
             EnemyBoss boss = new EnemyBoss();
@@ -95,6 +100,14 @@ namespace SpaceShooter
             boss.Reset();
 
             boss.Position = new Vector2(Game.Window.Width + boss.HalfWidth, Game.Window.Height * 0.5f);
+        }
+
+        public static void ClearAll()
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemies[i].Clear();
+            }
         }
     }
 }

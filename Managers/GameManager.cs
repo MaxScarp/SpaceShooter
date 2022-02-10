@@ -12,17 +12,22 @@ namespace SpaceShooter
 
         private static float timeToBoss;
         private static bool timeout;
+        private static bool stopped;
 
         public static void Init(Background _bg)
         {
             bg = _bg;
             timeout = false;
-            timeToBoss = 5.0f;
+            timeToBoss = 35.0f;
+            stopped = false;
+
+            bg.StartScrolling();
+            SpawnManager.StartSpawning();
         }
 
         public static void Update()
         {
-            if (!timeout)
+            if (!timeout && !stopped)
             {
                 timeToBoss -= Game.DeltaTime;
 
@@ -38,9 +43,14 @@ namespace SpaceShooter
         {
             bg.StopScrolling();
             SpawnManager.StopSpawning();
-            PowerUpManager.StopSpawningEnergyPowerUp();
 
             SpawnManager.SpawnBoss();
+        }
+
+        public static void Stop()
+        {
+            stopped = true;
+            timeout = false;
         }
     }
 }

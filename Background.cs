@@ -56,5 +56,10 @@ namespace SpaceShooter
         {
             isStopped = true;
         }
+
+        public void StartScrolling()
+        {
+            isStopped = false;
+        }
     }
 }
