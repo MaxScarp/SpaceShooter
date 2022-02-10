@@ -9,15 +9,16 @@ namespace SpaceShooter
 {
     abstract class Collider
     {
-        protected Vector2 offset;
+        public Vector2 Offset;
         protected RigidBody rigidBody;
 
-        public Vector2 Position { get { return rigidBody.Position + offset; } }
+        public Vector2 Position { get { return rigidBody.Position + Offset; } }
+        public RigidBody RigidBody { get { return rigidBody; } }
 
         public Collider(RigidBody owner)
         {
             rigidBody = owner;
-            offset = Vector2.Zero;
+            Offset = Vector2.Zero;
         }
 
         public abstract bool Contains(Vector2 point);

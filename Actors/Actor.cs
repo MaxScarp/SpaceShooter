@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    enum WeaponType { Default, Triple }
+    enum WeaponType { Default, Triple, LAST }
 
     abstract class Actor : GameObject
     {
@@ -32,6 +32,18 @@ namespace SpaceShooter
         public void ChangeWeapon(WeaponType newWeapon)
         {
             weaponType = newWeapon;
+        }
+
+        public void NextWeapon()
+        {
+            if(weaponType == (WeaponType.LAST - 1))
+            {
+                weaponType = 0;
+            }
+            else
+            {
+                weaponType++;
+            }
         }
 
         protected virtual void Shoot()

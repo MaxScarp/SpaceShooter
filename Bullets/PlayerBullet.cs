@@ -14,7 +14,8 @@ namespace SpaceShooter
         {
             RigidBody.Type = RigidBodyType.PlayerBullet;
             RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
-            RigidBody.AddCollisionType(RigidBodyType.EnemyBullet | RigidBodyType.Enemy);
+            DebugManager.AddItem(RigidBody.Collider);
+            RigidBody.AddCollisionType(RigidBodyType.Enemy);
 
             speed = 1075.13f;
 
@@ -34,15 +35,8 @@ namespace SpaceShooter
 
         public override void OnCollide(GameObject other)
         {
-            if(other is EnemyBullet)
-            {
-                BulletManager.RestoreBullet(this);
-            }
-            else if(other is Enemy)
-            {
-                ((Enemy)other).AddDamage(damage);
-                BulletManager.RestoreBullet(this);
-            }
+            ((Enemy)other).AddDamage(damage);
+            BulletManager.RestoreBullet(this);
         }
     }
 }

@@ -19,12 +19,12 @@ namespace SpaceShooter
 
             if(boundingCollider is CircleCollider)
             {
-                offset = Vector2.Zero;
+                Offset = Vector2.Zero;
             }
 
             if(boundingCollider is BoxCollider)
             {
-                offset = new Vector2(((BoxCollider)boundingCollider).Width, ((BoxCollider)boundingCollider).Height);
+                Offset = new Vector2(((BoxCollider)boundingCollider).Width * -0.5f, ((BoxCollider)boundingCollider).Height * -0.5f);
             }
         }
 
@@ -53,7 +53,7 @@ namespace SpaceShooter
 
         public override bool Collides(Collider other)
         {
-            return other.Collides(boundingCollider);
+            return other.Collides(this);
         }
 
         public override bool Collides(CircleCollider other)

@@ -10,10 +10,10 @@ namespace SpaceShooter
     {
         public static BoxCollider CreateBoxFor(GameObject obj)
         {
-            return new BoxCollider(obj.RigidBody, obj.HalfWidth, obj.HalfHeight);
+            return new BoxCollider(obj.RigidBody, (int)obj.HalfWidth * 2, (int)obj.HalfHeight * 2);
         }
 
-        public static CircleCollider CreateCirlceFor(GameObject obj, bool innerCircle = true)
+        public static CircleCollider CreateCircleFor(GameObject obj, bool innerCircle = true)
         {
             float radius;
 

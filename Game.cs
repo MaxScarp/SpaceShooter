@@ -47,7 +47,7 @@ namespace SpaceShooter
         {
             while(window.IsOpened)
             {
-                window.SetTitle($"FPS: {1f / DeltaTime}");
+                window.SetTitle($"FPS: {1.0f / DeltaTime}");
 
                 //INPUT
                 Quit();
@@ -74,6 +74,7 @@ namespace SpaceShooter
                 background.Draw();
 
                 DrawManager.Draw();
+                DebugManager.Draw();
 
                 window.Update();
             }
@@ -91,6 +92,7 @@ namespace SpaceShooter
         {
             GfxManager.AddTexture("player", "Assets/player_ship.png");
             GfxManager.AddTexture("enemy", "Assets/enemy_ship.png");
+            GfxManager.AddTexture("enemyRed", "Assets/redEnemy_ship.png");
             GfxManager.AddTexture("boss", "Assets/big_ship.png");
 
             GfxManager.AddTexture("blueLaser", "Assets/blueLaser.png");

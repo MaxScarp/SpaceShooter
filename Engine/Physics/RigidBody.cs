@@ -12,7 +12,7 @@ namespace SpaceShooter
     class RigidBody
     {
         private GameObject gameObject;
-        private Collider collider;
+        public Collider Collider;
 
         protected uint collisionMask;
 
@@ -24,7 +24,6 @@ namespace SpaceShooter
 
         public bool IsActive { get { return gameObject.IsActive; } }
         public GameObject GameObject { get { return gameObject; } }
-        public Collider Collider { set { collider = value; } }
         public Vector2 Position { get { return gameObject.Position; } set { gameObject.Position = value; } }
 
         public RigidBody(GameObject owner)
@@ -43,7 +42,7 @@ namespace SpaceShooter
 
         public bool Collides(RigidBody other)
         {
-            return collider.Collides(other.collider);
+            return Collider.Collides(other.Collider);
         }
 
         public void AddCollisionType(RigidBodyType type)

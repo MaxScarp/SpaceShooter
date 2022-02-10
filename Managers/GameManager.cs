@@ -17,7 +17,7 @@ namespace SpaceShooter
         {
             bg = _bg;
             timeout = false;
-            timeToBoss = 5.0f; //To change to 35.0s
+            timeToBoss = 5.0f;
         }
 
         public static void Update()

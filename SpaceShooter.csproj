@@ -52,6 +52,7 @@
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\EnemyBase.cs" />
     <Compile Include="Actors\EnemyBoss.cs" />
+    <Compile Include="Actors\EnemyRed.cs" />
     <Compile Include="Bullets\FireGlobe.cs" />
     <Compile Include="Bullets\RedLaser.cs" />
     <Compile Include="Engine\Physics\Colliders\BoxCollider.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Engine\Physics\Colliders\Collider.cs" />
     <Compile Include="Engine\Physics\Colliders\CollidersFactory.cs" />
     <Compile Include="Engine\Physics\Colliders\CompoundCollider.cs" />
+    <Compile Include="Managers\DebugManager.cs" />
     <Compile Include="Managers\DrawManager.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Background.cs" />

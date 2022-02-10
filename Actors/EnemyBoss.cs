@@ -10,18 +10,34 @@ namespace SpaceShooter
     class EnemyBoss : Enemy
     {
         private int posOffset;
-
-        private float nextNormalShoot;
-        private int nextSuperShootCounter;
-        private uint superShootNumber;
+        private float timeToChangeWeapon;
 
         private bool isVelocityChanged;
 
         public EnemyBoss() : base("boss")
         {
+            Type = EnemyType.Boss;
+
             posOffset = 45;
 
-            RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleFor(this, false);
+            CompoundCollider compound = new CompoundCollider(RigidBody, RigidBody.Collider);
+
+            BoxCollider box01 = new BoxCollider(RigidBody, (int)(HalfWidth + 100), (int)(HalfHeight * 2 - 40));
+            box01.Offset = new Vector2(40, 0);
+            compound.AddCollider(box01);
+
+            BoxCollider box02 = new BoxCollider(RigidBody, (int)(HalfWidth * 2), 25);
+            box02.Offset = new Vector2(0.0f, 75.0f);
+            compound.AddCollider(box02);
+
+            BoxCollider box03 = new BoxCollider(RigidBody, 80, 20);
+            box03.Offset = new Vector2(68.0f, 90.0f);
+            compound.AddCollider(box03);
+
+            RigidBody.Collider.Offset = compound.Offset;
+            RigidBody.Collider = compound;
+            DebugManager.AddItem(RigidBody.Collider);
 
             speed = -150.0f;
             RigidBody.Velocity.X = speed;
@@ -29,9 +45,9 @@ namespace SpaceShooter
             shootOffset = new Vector2(-HalfWidth, HalfHeight * 0.5f);
             maxEnergy = 2500;
 
-            nextNormalShoot = RandomGenerator.GetRandomInt(0, 3);
-            nextSuperShootCounter = 0;
-            superShootNumber = 4;
+            tripleShootAngle = MathHelper.DegreesToRadians(15.0f);
+            nextShoot = RandomGenerator.GetRandomInt(0, 3);
+            timeToChangeWeapon = 10.0f;
 
             isVelocityChanged = false;
         }
@@ -40,7 +56,8 @@ namespace SpaceShooter
         {
             if(IsActive)
             {
-                nextNormalShoot -= Game.DeltaTime;
+                nextShoot -= Game.DeltaTime;
+                timeToChangeWeapon -= Game.DeltaTime;
 
                 if(!isVelocityChanged && (Position.X <= Game.Window.Width - posOffset))
                 {
@@ -54,17 +71,15 @@ namespace SpaceShooter
 
         private void ShootLogic()
         {
-            if(nextNormalShoot <= 0.0f)
+            if (timeToChangeWeapon <= 0.0f)
             {
-                ChangeWeapon(WeaponType.Default);
-                nextNormalShoot = RandomGenerator.GetRandomFloat() + 0.62f;
-                Shoot();
-                nextSuperShootCounter++;
+                timeToChangeWeapon = RandomGenerator.GetRandomInt(4, 8);
+                NextWeapon();
             }
 
-            if(nextSuperShootCounter != 0 && nextSuperShootCounter % 10 == 0)
+            if (nextShoot <= 0.0f)
             {
-                ChangeWeapon(WeaponType.Triple);
+                nextShoot = RandomGenerator.GetRandomFloat();
                 Shoot();
             }
         }

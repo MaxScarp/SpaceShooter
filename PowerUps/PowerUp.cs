@@ -14,7 +14,7 @@ namespace SpaceShooter
         protected PowerUp(string textureName) : base(textureName)
         {
             RigidBody = new RigidBody(this);
-            RigidBody.Collider = CollidersFactory.CreateCirlceFor(this);
+            RigidBody.Collider = CollidersFactory.CreateCircleFor(this);
             RigidBody.Type = RigidBodyType.PowerUp;
             RigidBody.AddCollisionType(RigidBodyType.Player);
 

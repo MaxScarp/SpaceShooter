@@ -7,22 +7,21 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
-    class EnemyBase : Enemy
+    class EnemyRed : Enemy
     {
-        public EnemyBase() : base("enemy")
+        public EnemyRed() : base("enemyRed")
         {
-            Type = EnemyType.Base;
+            Type = EnemyType.Red;
 
             RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
-            DebugManager.AddItem(RigidBody.Collider);
 
-            speed = -475.0f;
+            speed = -375.0f;
             RigidBody.Velocity.X = speed;
 
             shootOffset = new Vector2(-Pivot.X, Pivot.Y * 0.5f);
             nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
 
-            maxEnergy = 50;
+            maxEnergy = 125;
         }
     }
 }

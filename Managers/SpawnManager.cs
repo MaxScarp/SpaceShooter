@@ -10,7 +10,7 @@ namespace SpaceShooter
     static class SpawnManager
     {
         private static int enemyNumber;
-        private static Queue<Enemy> enemies;
+        private static Queue<Enemy>[] enemies;
         
         private static float nextSpawn;
         private static bool isStopped;
@@ -19,11 +19,27 @@ namespace SpaceShooter
         {
             enemyNumber = 10;
 
-            enemies = new Queue<Enemy>(enemyNumber);
+            enemies = new Queue<Enemy>[(int)EnemyType.LAST];
 
-            for (int i = 0; i < enemyNumber; i++)
+            for (int i = 0; i < enemies.Length; i++)
             {
-                enemies.Enqueue(new EnemyBase());
+                enemies[i] = new Queue<Enemy>(enemyNumber);
+
+                switch ((EnemyType)i)
+                {
+                    case EnemyType.Base:
+                        for (int j = 0; j < enemyNumber; j++)
+                        {
+                            enemies[i].Enqueue(new EnemyBase());
+                        }
+                        break;
+                    case EnemyType.Red:
+                        for (int j = 0; j < enemyNumber; j++)
+                        {
+                            enemies[i].Enqueue(new EnemyRed());
+                        }
+                        break;
+                }
             }
 
             nextSpawn = RandomGenerator.GetRandomInt(1, 3);
@@ -40,16 +56,20 @@ namespace SpaceShooter
                 if (nextSpawn <= 0)
                 {
                     nextSpawn = RandomGenerator.GetRandomInt(1, 3);
-                    SpawnEnemy();
+
+                    int enemyType = RandomGenerator.GetRandomInt(0, (int)EnemyType.LAST);
+                    SpawnEnemy((EnemyType)enemyType);
                 } 
             }
         }
 
-        private static void SpawnEnemy()
+        private static void SpawnEnemy(EnemyType type)
         {
-            if(enemies.Count > 0)
+            int index = (int)type;
+
+            if(enemies[index].Count > 0)
             {
-                Enemy enemy = enemies.Dequeue();
+                Enemy enemy = enemies[index].Dequeue();
                 enemy.IsActive = true;
                 enemy.Reset();
 
@@ -60,7 +80,7 @@ namespace SpaceShooter
         public static void RestoreEnemy(Enemy enemy)
         {
             enemy.IsActive = false;
-            enemies.Enqueue(enemy);
+            enemies[(int)enemy.Type].Enqueue(enemy);
         }
 
         public static void StopSpawning()

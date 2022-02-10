@@ -15,10 +15,12 @@ namespace SpaceShooter
         public float Width { get { return halfWidth * 2.0f; } }
         public float Height { get { return halfHeight * 2.0f; } }
 
-        public BoxCollider(RigidBody owner, float halfWidth, float halfHeight) : base(owner)
+        public BoxCollider(RigidBody owner, int w, int h) : base(owner)
         {
-            this.halfWidth = halfWidth;
-            this.halfHeight = halfHeight;
+            halfWidth = w * 0.5f;
+            halfHeight = h * 0.5f;
+
+            DebugManager.AddItem(this);
         }
 
         public override bool Collides(BoxCollider other)

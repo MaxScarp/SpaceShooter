@@ -13,7 +13,7 @@ namespace SpaceShooter
         public EnemyBullet(string textureName, int spriteWidth = 0, int spriteHeight = 0) : base(textureName, spriteWidth, spriteHeight)
         {
             RigidBody.Type = RigidBodyType.EnemyBullet;
-            RigidBody.AddCollisionType(RigidBodyType.PlayerBullet | RigidBodyType.Player);
+            RigidBody.AddCollisionType(RigidBodyType.Player);
 
             sprite.FlipX = true;
 
@@ -33,15 +33,8 @@ namespace SpaceShooter
 
         public override void OnCollide(GameObject other)
         {
-            if(other is PlayerBullet)
-            {
-                BulletManager.RestoreBullet(this);
-            }
-            else if(other is Player)
-            {
-                ((Player)other).AddDamage(damage);
-                BulletManager.RestoreBullet(this);
-            }
+            ((Player)other).AddDamage(damage);
+            BulletManager.RestoreBullet(this);
         }
     }
 }

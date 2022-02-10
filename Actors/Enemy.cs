@@ -8,16 +8,19 @@ using System.Threading.Tasks;
 
 namespace SpaceShooter
 {
+    enum EnemyType { Base, Red, Boss, LAST }
+
     abstract class Enemy : Actor
     {
         protected float nextShoot;
+
+        public EnemyType Type { get; protected set; }
 
         public Enemy(string textureName) : base(textureName)
         {
             sprite.FlipX = true;
             RigidBody.Type = RigidBodyType.Enemy;
             bulletType = BulletType.EnemyBullet;
-            maxEnergy = 50;
         }
 
         public override void Update()

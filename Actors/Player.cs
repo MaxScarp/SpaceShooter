@@ -20,6 +20,7 @@ namespace SpaceShooter
             RigidBody.Type = RigidBodyType.Player;
             RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
             RigidBody.AddCollisionType(RigidBodyType.Enemy);
+            DebugManager.AddItem(RigidBody.Collider);
 
             speed = 455.0f;
             tripleShootAngle = MathHelper.DegreesToRadians(15.0f);
