@@ -94,9 +94,8 @@ namespace SpaceShooter
         {
             LoadAssets();
 
-            FontManager.Init();
-            Font stdFont = FontManager.AddFont("stdFont", "Assets/textSheet.png", 15, 32, 20, 20);
-            Font comic = FontManager.AddFont("comics", "Assets/comics.png", 10, 32, 61, 65);
+            //Font stdFont = FontManager.AddFont("stdFont", "Assets/textSheet.png", 15, 32, 20, 20);
+            //Font comic = FontManager.AddFont("comics", "Assets/comics.png", 10, 32, 61, 65);
 
             background = new Background();
 
@@ -120,7 +119,6 @@ namespace SpaceShooter
             PowerUpManager.ClearAll();
             SpawnManager.ClearAll();
             UpdateManager.ClearAll();
-            FontManager.ClearAll();
             GameManager.Stop();
         }
     }

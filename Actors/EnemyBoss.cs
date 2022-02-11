@@ -49,8 +49,6 @@ namespace SpaceShooter
             timeToChangeWeapon = 10.0f;
 
             isVelocityChanged = false;
-
-            Points = 500;
         }
 
         public override void Update()

@@ -13,18 +13,16 @@ namespace SpaceShooter
         private string text;
         private bool isActive;
         private Font font;
-        private int hSpace;
+        readonly int hSpace;
         private Vector2 position;
 
-        public bool IsActive { get { return isActive; } set { isActive = value; UpdateCharStatus(value); } }
+        public bool IsActive { get { return isActive; } set { UpdateCharStatus(value); } }
         public string Text { get { return text; } set { SetText(value); } }
 
-        public TextObject(Vector2 position, string textString = "", Font font = null, int horizontalSpace = 0)
+        public TextObject(Vector2 position, string textString = "", Font font = null, int horizontalSPace = 0)
         {
-            sprites = new List<TextChar>();
-
             this.position = position;
-            hSpace = horizontalSpace;
+            hSpace = horizontalSPace;
 
             if(font == null)
             {
@@ -34,11 +32,11 @@ namespace SpaceShooter
 
             if(textString != "")
             {
-                SetText(textString);
+                Text = textString;
             }
         }
 
-        private void SetText(string newText)
+        public void SetText(string newText)
         {
             if(newText != text)
             {
@@ -64,7 +62,7 @@ namespace SpaceShooter
                     charX += (int)sprites[i].HalfWidth * 2 + hSpace;
                 }
 
-                if(sprites.Count > text.Length)
+                if(text.Length < sprites.Count)
                 {
                     int count = sprites.Count - text.Length;
                     int startCut = text.Length;
@@ -73,12 +71,13 @@ namespace SpaceShooter
                     {
                         sprites[i].Destroy();
                     }
+
                     sprites.RemoveRange(startCut, count);
                 }
             }
         }
 
-        private void UpdateCharStatus(bool activeStatus)
+        public void UpdateCharStatus(bool activeStatus)
         {
             for (int i = 0; i < sprites.Count; i++)
             {

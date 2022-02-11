@@ -14,8 +14,6 @@ namespace SpaceShooter
     {
         protected float nextShoot;
 
-        public int Points { get; protected set; }
-
         public EnemyType Type { get; protected set; }
 
         public Enemy(string textureName) : base(textureName)

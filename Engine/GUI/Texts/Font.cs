@@ -10,7 +10,7 @@ namespace SpaceShooter
 {
     class Font
     {
-        private int numCol;
+        private int numCols;
         private int firstVal;
 
         public string TextureName { get; private set; }
@@ -23,17 +23,17 @@ namespace SpaceShooter
             TextureName = textureName;
             Texture = GfxManager.AddTexture(TextureName, texturePath);
             firstVal = firstCharacterASCIIvalue;
+            numCols = numColumns;
             CharWidth = charWidth;
             CharHeight = charHeight;
-            numCol = numColumns;
         }
 
         public Vector2 GetOffset(char c)
         {
             int cVal = c;
             int delta = cVal - firstVal;
-            int x = delta % numCol;
-            int y = delta / numCol;
+            int x = delta % numCols;
+            int y = delta / numCols;
 
             return new Vector2(x * CharWidth, y * CharHeight);
         }

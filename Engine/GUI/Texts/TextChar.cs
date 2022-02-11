@@ -15,18 +15,18 @@ namespace SpaceShooter
 
         public char Character { get { return character; } set { character = value; ComputeOffset(); } }
 
-        public TextChar(Vector2 spritePosition, char character, Font font) : base(font.TextureName, font.CharWidth, font.CharHeight)
+        public TextChar(Vector2 position, char character, Font font) : base(font.TextureName, font.CharWidth, font.CharHeight)
         {
-            Position = spritePosition;
+            Position = position;
             this.font = font;
             Character = character;
             Pivot = Vector2.Zero;
             IsActive = true;
         }
 
-        private void ComputeOffset()
+        public void ComputeOffset()
         {
-            textureOffset = font.GetOffset(character);
+            textureOffset = font.GetOffset(Character);
         }
 
         public override void Draw()
