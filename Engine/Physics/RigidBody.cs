@@ -54,5 +54,13 @@ namespace SpaceShooter
         {
             return ((uint)type & collisionMask) != 0;
         }
+
+        public void Destroy()
+        {
+            gameObject = null;
+            Collider = null;
+
+            PhysicsManager.RemoveItem(this);
+        }
     }
 }

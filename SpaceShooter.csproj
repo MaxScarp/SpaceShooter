@@ -55,6 +55,9 @@
     <Compile Include="Actors\EnemyRed.cs" />
     <Compile Include="Bullets\FireGlobe.cs" />
     <Compile Include="Bullets\RedLaser.cs" />
+    <Compile Include="Engine\GUI\Texts\Font.cs" />
+    <Compile Include="Engine\GUI\Texts\TextChar.cs" />
+    <Compile Include="Engine\GUI\Texts\TextObject.cs" />
     <Compile Include="Engine\Physics\Colliders\BoxCollider.cs" />
     <Compile Include="Engine\Physics\Colliders\CircleCollider.cs" />
     <Compile Include="Engine\Physics\Colliders\Collider.cs" />
@@ -71,6 +74,7 @@
     <Compile Include="Actors\Enemy.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Actors\Player.cs" />
+    <Compile Include="Managers\FontManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\GfxManager.cs" />
     <Compile Include="Engine\Interfaces\I_Drawable.cs" />

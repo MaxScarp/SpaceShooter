@@ -34,7 +34,12 @@ namespace SpaceShooter
 
         public override void OnCollide(GameObject other)
         {
-            ((Enemy)other).AddDamage(damage);
+            Enemy enemy = ((Enemy)other);
+            enemy.AddDamage(damage);
+            if(!enemy.IsAlive)
+            {
+                ((PlayScene)Game.CurrentScene).Player.AddScore(enemy.Points);
+            }
             BulletManager.RestoreBullet(this);
         }
     }

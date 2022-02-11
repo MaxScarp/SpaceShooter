@@ -15,6 +15,8 @@ namespace SpaceShooter
         private int playerNumBullets;
         private int enemyNumBullets;
 
+        public Player Player { get { return player; } }
+
         public PlayScene() : base()
         {
             playerNumBullets = 20;
@@ -32,15 +34,7 @@ namespace SpaceShooter
         {
             player = null;
 
-            BulletManager.ClearAll();
-            DebugManager.ClearAll();
-            DrawManager.ClearAll();
-            GfxManager.ClearAll();
-            PhysicsManager.ClearAll();
-            PowerUpManager.ClearAll();
-            SpawnManager.ClearAll();
-            UpdateManager.ClearAll();
-            GameManager.Stop();
+            ClearScene();
 
             return base.OnExit();
         }
@@ -75,7 +69,7 @@ namespace SpaceShooter
             background.Draw();
 
             DrawManager.Draw();
-            DebugManager.Draw();
+            //DebugManager.Draw();
         }
 
         protected override void LoadAssets()
@@ -100,6 +94,10 @@ namespace SpaceShooter
         {
             LoadAssets();
 
+            FontManager.Init();
+            Font stdFont = FontManager.AddFont("stdFont", "Assets/textSheet.png", 15, 32, 20, 20);
+            Font comic = FontManager.AddFont("comics", "Assets/comics.png", 10, 32, 61, 65);
+
             background = new Background();
 
             //PLAYER
@@ -110,6 +108,20 @@ namespace SpaceShooter
             SpawnManager.Init();
             PowerUpManager.Init();
             GameManager.Init(background);
+        }
+
+        private void ClearScene()
+        {
+            BulletManager.ClearAll();
+            DebugManager.ClearAll();
+            DrawManager.ClearAll();
+            GfxManager.ClearAll();
+            PhysicsManager.ClearAll();
+            PowerUpManager.ClearAll();
+            SpawnManager.ClearAll();
+            UpdateManager.ClearAll();
+            FontManager.ClearAll();
+            GameManager.Stop();
         }
     }
 }

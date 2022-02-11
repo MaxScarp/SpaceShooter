@@ -11,11 +11,16 @@ namespace SpaceShooter
     class Player : Actor
     {
         private ProgressBar energyBar;
+        private TextObject playerName;
+        private TextObject playerScore;
+
+        private int score;
+
+        private bool shot;
 
         public override int Energy { get => base.Energy; set { base.Energy = value; energyBar.Scale((float)value / maxEnergy); } }
 
-        private bool shot;
-        public Player() : base("player")
+        public Player(int id = 0) : base("player")
         {
             RigidBody.Type = RigidBodyType.Player;
             RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
@@ -30,8 +35,17 @@ namespace SpaceShooter
             energyBar = new ProgressBar("frameBar", "bar", new Vector2(4.0f, 4.0f));
             energyBar.Position = new Vector2(60.0f, 50.0f);
 
-            IsActive = true;
+            Vector2 playerNamePos = energyBar.Position + new Vector2(0.0f, -20.0f);
+            playerName = new TextObject(playerNamePos, $"Player {id + 1}", FontManager.GetFont(), 5);
+            playerName.IsActive = true;
 
+            Vector2 playerScorePos = energyBar.Position + new Vector2(0.0f, 20.0f);
+            playerScore = new TextObject(playerScorePos, "0", FontManager.GetFont());
+            playerScore.IsActive = true;
+            UpdateScore();
+
+            IsActive = true;
+            
             maxEnergy = 100;
             Reset();
         }
@@ -45,6 +59,11 @@ namespace SpaceShooter
         public override void Update()
         {
             Move();
+        }
+
+        private void UpdateScore()
+        {
+            playerScore.Text = score.ToString("00000");
         }
 
         private void ShootInput()
@@ -98,6 +117,12 @@ namespace SpaceShooter
             {
                 RigidBody.Velocity = RigidBody.Velocity.Normalized() * speed;
             }
+        }
+
+        public void AddScore(int points)
+        {
+            score += points;
+            UpdateScore();
         }
 
         public override void OnCollide(GameObject other)

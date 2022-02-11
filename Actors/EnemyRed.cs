@@ -22,6 +22,8 @@ namespace SpaceShooter
             nextShoot = RandomGenerator.GetRandomFloat() + 0.3f;
 
             maxEnergy = 125;
+
+            Points = 75;
         }
     }
 }

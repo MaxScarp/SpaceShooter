@@ -55,5 +55,19 @@ namespace SpaceShooter
         }
 
         public virtual void OnCollide(GameObject other) { }
+
+        public virtual void Destroy()
+        {
+            sprite = null;
+            texture = null;
+
+            UpdateManager.RemoveItem(this);
+            DrawManager.RemoveItem(this);
+
+            if(RigidBody != null)
+            {
+                RigidBody.Destroy();
+            }
+        } 
     }
 }
