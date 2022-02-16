@@ -55,6 +55,9 @@
     <Compile Include="Actors\EnemyRed.cs" />
     <Compile Include="Bullets\FireGlobe.cs" />
     <Compile Include="Bullets\RedLaser.cs" />
+    <Compile Include="Controllers\Controller.cs" />
+    <Compile Include="Controllers\JoypadController.cs" />
+    <Compile Include="Controllers\KeyboardController.cs" />
     <Compile Include="Engine\GUI\Texts\Font.cs" />
     <Compile Include="Engine\GUI\Texts\TextChar.cs" />
     <Compile Include="Engine\GUI\Texts\TextObject.cs" />

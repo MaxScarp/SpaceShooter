@@ -12,6 +12,9 @@ namespace SpaceShooter
     {
         private static Window window;
 
+        private static List<JoypadController> joypads;
+        private static KeyboardController keyboardController;
+
         public static Window Window { get { return window; } }
         public static float DeltaTime { get { return window.DeltaTime; } }
         public static Scene CurrentScene { get; private set; }
@@ -32,6 +35,32 @@ namespace SpaceShooter
             gameOverScene.NextScene = titleScene;
 
             CurrentScene = titleScene;
+
+            //CONTROLLERS
+            keyboardController = new KeyboardController(0);
+
+            string[] joysticks = Window.Joysticks;
+            joypads = new List<JoypadController>();
+
+            for (int i = 0; i < joysticks.Length; i++)
+            {
+                if(joysticks[i] != null && joysticks[i] != "Unmapped Controller")
+                {
+                    joypads.Add(new JoypadController(i));
+                }
+            }
+        }
+
+        public static Controller GetController(int index)
+        {
+            Controller controller = keyboardController;
+
+            if(index < joypads.Count)
+            {
+                controller = joypads[index];
+            }
+
+            return controller;
         }
 
         public static void Play()

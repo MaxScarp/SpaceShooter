@@ -14,13 +14,15 @@ namespace SpaceShooter
         private TextObject playerName;
         private TextObject playerScore;
 
+        private Controller controller;
+
         private int score;
 
         private bool shot;
 
         public override int Energy { get => base.Energy; set { base.Energy = value; energyBar.Scale((float)value / maxEnergy); } }
 
-        public Player(int id = 0) : base("player")
+        public Player(Controller controller, int id = 0) : base("player")
         {
             RigidBody.Type = RigidBodyType.Player;
             RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
@@ -44,10 +46,12 @@ namespace SpaceShooter
             playerScore.IsActive = true;
             UpdateScore();
 
-            IsActive = true;
-            
             maxEnergy = 100;
             Reset();
+
+            this.controller = controller;
+
+            IsActive = true;
         }
 
         public void Input()
@@ -55,12 +59,6 @@ namespace SpaceShooter
             MovementInput();
             ShootInput();
         }
-
-        public override void Update()
-        {
-            Move();
-        }
-
         private void UpdateScore()
         {
             playerScore.Text = score.ToString("00000");
@@ -68,7 +66,7 @@ namespace SpaceShooter
 
         private void ShootInput()
         {
-            if (Game.Window.GetKey(KeyCode.Space))
+            if (controller.IsFirePressed())
             {
                 if (!shot)
                 {
@@ -84,39 +82,14 @@ namespace SpaceShooter
 
         private void MovementInput()
         {
-            if (Game.Window.GetKey(KeyCode.D) && (Position.X + sprite.Width * 0.5f < Game.Window.Width))
+            Vector2 direction = new Vector2(controller.GetHorizonatl(), controller.GetVertical());
+
+            if(direction.Length > 1)
             {
-                RigidBody.Velocity.X = speed;
-            }
-            else if (Game.Window.GetKey(KeyCode.A) && (Position.X - sprite.Width * 0.5f >= 0))
-            {
-                RigidBody.Velocity.X = -speed;
-            }
-            else
-            {
-                RigidBody.Velocity.X = 0.0f;
+                direction.Normalize();
             }
 
-            if (Game.Window.GetKey(KeyCode.W) && (Position.Y - sprite.Height * 0.5f >= 0))
-            {
-                RigidBody.Velocity.Y = -speed;
-            }
-            else if (Game.Window.GetKey(KeyCode.S) && (Position.Y + sprite.Height * 0.5f < Game.Window.Height))
-            {
-                RigidBody.Velocity.Y = speed;
-            }
-            else
-            {
-                RigidBody.Velocity.Y = 0.0f;
-            }
-        }
-
-        private void Move()
-        {
-            if (RigidBody.Velocity.X != 0 || RigidBody.Velocity.Y != 0)
-            {
-                RigidBody.Velocity = RigidBody.Velocity.Normalized() * speed;
-            }
+            RigidBody.Velocity = direction * speed;
         }
 
         public void AddScore(int points)
