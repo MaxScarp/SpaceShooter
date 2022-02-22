@@ -17,13 +17,19 @@ namespace SpaceShooter
         private Controller controller;
 
         private int score;
+        private int id;
 
         private bool shot;
 
         public override int Energy { get => base.Energy; set { base.Energy = value; energyBar.Scale((float)value / maxEnergy); } }
+        public ProgressBar EnergyBar { get { return energyBar; } private set { energyBar = value; } }
+        public TextObject PlayerName { get { return playerName; } }
+        public TextObject PlayerScore { get { return playerScore; } }
 
         public Player(Controller controller, int id = 0) : base("player")
         {
+            this.id = id;
+
             RigidBody.Type = RigidBodyType.Player;
             RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
             RigidBody.AddCollisionType(RigidBodyType.Enemy);
@@ -34,17 +40,7 @@ namespace SpaceShooter
             bulletType = BulletType.PlayerBullet;
             shootOffset = new Vector2(sprite.pivot.X + 10.0f, sprite.pivot.Y - 10.0f);
 
-            energyBar = new ProgressBar("frameBar", "bar", new Vector2(4.0f, 4.0f));
-            energyBar.Position = new Vector2(60.0f, 50.0f);
-
-            Vector2 playerNamePos = energyBar.Position + new Vector2(0.0f, -20.0f);
-            playerName = new TextObject(playerNamePos, $"Player {id + 1}", FontManager.GetFont(), 5);
-            playerName.IsActive = true;
-
-            Vector2 playerScorePos = energyBar.Position + new Vector2(0.0f, 20.0f);
-            playerScore = new TextObject(playerScorePos, "0", FontManager.GetFont());
-            playerScore.IsActive = true;
-            UpdateScore();
+            EnergyBar = new ProgressBar("frameBar", "bar", new Vector2(4.0f, 4.0f));
 
             maxEnergy = 100;
             Reset();
@@ -56,9 +52,31 @@ namespace SpaceShooter
 
         public void Input()
         {
-            MovementInput();
-            ShootInput();
+            if(IsAlive)
+            {
+                MovementInput();
+                ShootInput();
+            }
         }
+
+        public void SetEnergyBarPosition(Vector2 energyBarPos)
+        {
+            EnergyBar.Position = energyBarPos;
+        }
+
+        public void SetPlayerNamePosition(Vector2 playerNamePos)
+        {
+            playerName = new TextObject(playerNamePos, $"Player {id + 1}", FontManager.GetFont(), 5);
+            playerName.IsActive = true;
+        }
+
+        public void SetPlayerScorePos(Vector2 playerScorePos)
+        {
+            playerScore = new TextObject(playerScorePos, "0", FontManager.GetFont());
+            playerScore.IsActive = true;
+            UpdateScore();
+        }
+
         private void UpdateScore()
         {
             playerScore.Text = score.ToString("00000");
@@ -71,12 +89,33 @@ namespace SpaceShooter
                 if (!shot)
                 {
                     shot = true;
-                    Shoot();
+                    Shoot(id);
                 }
             }
             else
             {
                 shot = false;
+            }
+        }
+
+        private void CheckBounds()
+        {
+            if(Position.X + HalfWidth >= Game.Window.Width)
+            {
+                sprite.position.X = Game.Window.Width - HalfWidth;
+            }
+            else if(Position.X - HalfWidth <= 0)
+            {
+                sprite.position.X = HalfWidth;
+            }
+
+            if(Position.Y - HalfHeight <= 0)
+            {
+                sprite.position.Y = HalfHeight;
+            }
+            else if(Position.Y + HalfHeight >= Game.Window.Height)
+            {
+                sprite.position.Y = Game.Window.Height - HalfHeight;
             }
         }
 
@@ -88,6 +127,8 @@ namespace SpaceShooter
             {
                 direction.Normalize();
             }
+
+            CheckBounds();
 
             RigidBody.Velocity = direction * speed;
         }
@@ -102,6 +143,14 @@ namespace SpaceShooter
         {
             SpawnManager.RestoreEnemy((Enemy)other);
             AddDamage(100);
+        }
+
+        protected override void OnDie()
+        {
+            IsActive = false;
+            playerName.IsActive = false;
+            playerScore.IsActive = false;
+            EnergyBar.IsActive = false;
         }
     }
 }

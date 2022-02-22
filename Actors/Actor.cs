@@ -46,14 +46,22 @@ namespace SpaceShooter
             }
         }
 
-        protected virtual void Shoot()
+        protected virtual void Shoot(int playerId = -1)
         {
             Bullet bullet;
 
             switch (weaponType)
             {
                 case WeaponType.Default:
-                    bullet = BulletManager.GetBullet(bulletType);
+                    if(playerId != -1)
+                    {
+                        bullet = BulletManager.GetBullet(bulletType, playerId);
+                    }
+                    else
+                    {
+                        bullet = BulletManager.GetBullet(bulletType);
+                    }
+
                     if(bullet != null)
                     {
                         bullet.Shoot(Position + shootOffset, new Vector2(bullet.Speed, 0.0f));
@@ -66,8 +74,16 @@ namespace SpaceShooter
 
                     for (int i = 0; i < 3; i++)
                     {
-                        bullet = BulletManager.GetBullet(bulletType);
-                        if(bullet != null)
+                        if(playerId != -1)
+                        {
+                            bullet = BulletManager.GetBullet(bulletType, playerId);
+                        }
+                        else
+                        {
+                            bullet = BulletManager.GetBullet(bulletType);
+                        }
+
+                        if (bullet != null)
                         {
                             bullet.Shoot(Position + shootOffset, bulletDir.Normalized() * bullet.Speed);
                             bulletDir.Y -= y;

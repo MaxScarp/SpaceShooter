@@ -10,6 +10,8 @@ namespace SpaceShooter
 {
     class PlayerBullet : Bullet
     {
+        public int PlayerId;
+
         public PlayerBullet() : base("blueLaser")
         {
             RigidBody.Type = RigidBodyType.PlayerBullet;
@@ -38,7 +40,14 @@ namespace SpaceShooter
             enemy.AddDamage(damage);
             if(!enemy.IsAlive)
             {
-                ((PlayScene)Game.CurrentScene).Player.AddScore(enemy.Points);
+                if(PlayerId == 0)
+                {
+                    ((PlayScene)Game.CurrentScene).Player1.AddScore(enemy.Points);
+                }
+                else if(PlayerId == 1)
+                {
+                    ((PlayScene)Game.CurrentScene).Player2.AddScore(enemy.Points);
+                }
             }
             BulletManager.RestoreBullet(this);
         }

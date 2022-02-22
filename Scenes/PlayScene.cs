@@ -10,12 +10,15 @@ namespace SpaceShooter
     class PlayScene : Scene
     {
         private Background background;
-        private Player player;
+        private Player player1;
+        private Player player2;
 
         private int playerNumBullets;
         private int enemyNumBullets;
 
-        public Player Player { get { return player; } }
+        public Player Player1 { get { return player1; } }
+        public Player Player2 { get { return player2; } }
+
 
         public PlayScene() : base()
         {
@@ -32,10 +35,10 @@ namespace SpaceShooter
 
         public override Scene OnExit()
         {
-            player = null;
+            player1 = null;
 
             ClearScene();
-
+            
             return base.OnExit();
         }
 
@@ -43,13 +46,39 @@ namespace SpaceShooter
         {
             base.Input();
 
-            player.Input();
+            player1.Input();
+
+            if(player2 != null)
+            {
+                player2.Input();
+            }
         }
         public override void Update()
         {
-            if (!player.IsAlive)
+            if(player2 != null)
             {
-                IsPlaying = false;
+                if (!player1.IsAlive && !player2.IsAlive)
+                {
+                    IsPlaying = false;
+                }
+            }
+            else
+            {
+                if(!player1.IsAlive)
+                {
+                    IsPlaying = false;
+                    return;
+                }
+            }
+
+            if(!player1.IsAlive)
+            {
+                player2.PlayerName.IsActive = false;
+                player2.PlayerScore.IsActive = false;
+
+                player2.SetEnergyBarPosition(player1.EnergyBar.Position);
+                Player2.SetPlayerNamePosition(player2.EnergyBar.Position + new Vector2(0.0f, -20.0f));
+                player2.SetPlayerScorePos(player2.EnergyBar.Position + new Vector2(0.0f, 20.0f));
             }
 
             GameManager.Update();
@@ -100,9 +129,23 @@ namespace SpaceShooter
 
             background = new Background();
 
-            //PLAYER
-            player = new Player(Game.GetController(0));
-            player.Position = new Vector2(100, Game.Window.Height * 0.5f);
+            //PLAYER 1
+            player1 = new Player(Game.GetController(0));
+            player1.Position = new Vector2(100, Game.Window.Height * 0.5f - 50.0f);
+            player1.SetEnergyBarPosition(new Vector2(60.0f, 50.0f));
+            player1.SetPlayerNamePosition(player1.EnergyBar.Position + new Vector2(0.0f, -20.0f));
+            player1.SetPlayerScorePos(player1.EnergyBar.Position + new Vector2(0.0f, 20.0f));
+
+            //PLAYER2
+            if (Game.Joypads.Count >= 1 && Game.Joypads[0] != null)
+            {
+                player2 = new Player(Game.GetController(1), 1);
+                player2.Position = new Vector2(100, Game.Window.Height * 0.5f + 50.0f);
+                player2.EnergyBar.Position = new Vector2(60.0f, 50.0f);
+                player2.SetEnergyBarPosition(player1.EnergyBar.Position + new Vector2(player1.EnergyBar.HalfWidth * 2 + 15.0f, 0.0f));
+                player2.SetPlayerNamePosition(player2.EnergyBar.Position + new Vector2(0.0f, -20.0f));
+                player2.SetPlayerScorePos(player2.EnergyBar.Position + new Vector2(0.0f, 20.0f)); 
+            }
 
             BulletManager.Init(playerNumBullets, enemyNumBullets);
             SpawnManager.Init();

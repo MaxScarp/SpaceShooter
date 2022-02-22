@@ -22,7 +22,7 @@ namespace SpaceShooter
             {
                 direction = 1.0f;
             }
-            else if(Game.Window.GetKey(KeyCode.D))
+            else if(Game.Window.GetKey(KeyCode.A))
             {
                 direction = -1.0f;
             }

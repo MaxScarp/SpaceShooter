@@ -18,6 +18,7 @@ namespace SpaceShooter
         public static Window Window { get { return window; } }
         public static float DeltaTime { get { return window.DeltaTime; } }
         public static Scene CurrentScene { get; private set; }
+        public static List<JoypadController> Joypads { get { return joypads; } }
 
         public static void Init()
         {

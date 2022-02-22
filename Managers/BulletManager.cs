@@ -52,6 +52,22 @@ namespace SpaceShooter
             }
         }
 
+        public static Bullet GetBullet(BulletType type, int playerId)
+        {
+            int index = (int)type;
+
+            if (bullets[index].Count > 0)
+            {
+                Bullet bullet = bullets[index].Dequeue();
+                ((PlayerBullet)bullet).PlayerId = playerId;
+                bullet.IsActive = true;
+
+                return bullet;
+            }
+
+            return null;
+        }
+
         public static Bullet GetBullet(BulletType type)
         {
             int index = (int)type;
