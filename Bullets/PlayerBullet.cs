@@ -8,19 +8,14 @@ using OpenTK;
 
 namespace SpaceShooter
 {
-    class PlayerBullet : Bullet
+    abstract class PlayerBullet : Bullet
     {
         public int PlayerId;
 
-        public PlayerBullet() : base("blueLaser")
+        public PlayerBullet(string textureName) : base(textureName)
         {
             RigidBody.Type = RigidBodyType.PlayerBullet;
-            RigidBody.Collider = CollidersFactory.CreateBoxFor(this);
             RigidBody.AddCollisionType(RigidBodyType.Enemy);
-
-            speed = 1075.13f;
-
-            damage = 25;
         }
 
         public override void Update()

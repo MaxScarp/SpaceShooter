@@ -27,7 +27,14 @@ namespace SpaceShooter
                         bullets[i] = new Queue<Bullet>(playerBulletNum);
                         for (int j = 0; j < playerBulletNum; j++)
                         {
-                            bullets[i].Enqueue(new PlayerBullet());
+                            if (j <= playerBulletNum * 0.5f)
+                            {
+                                bullets[i].Enqueue(new BlueLaser());
+                            }
+                            else
+                            {
+                                bullets[i].Enqueue(new GreenGlobe());
+                            }
                         }
                         break;
                     case (int)BulletType.EnemyBullet:

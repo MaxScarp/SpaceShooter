@@ -111,6 +111,7 @@ namespace SpaceShooter
             GfxManager.AddTexture("blueLaser", "Assets/blueLaser.png");
             GfxManager.AddTexture("beams", "Assets/beams.png");
             GfxManager.AddTexture("fireGlobe", "Assets/fireGlobe.png");
+            GfxManager.AddTexture("greenGlobe", "Assets/greenGlobe.png");
 
             GfxManager.AddTexture("frameBar", "Assets/loadingBar_frame.png");
             GfxManager.AddTexture("bar", "Assets/loadingBar_bar.png");

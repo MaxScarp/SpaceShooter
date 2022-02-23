@@ -53,7 +53,9 @@
     <Compile Include="Actors\EnemyBase.cs" />
     <Compile Include="Actors\EnemyBoss.cs" />
     <Compile Include="Actors\EnemyRed.cs" />
+    <Compile Include="Bullets\BlueLaser.cs" />
     <Compile Include="Bullets\FireGlobe.cs" />
+    <Compile Include="Bullets\GreenGlobe.cs" />
     <Compile Include="Bullets\RedLaser.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\JoypadController.cs" />

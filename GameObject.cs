@@ -25,6 +25,12 @@ namespace SpaceShooter
         public float HalfWidth { get; private set; }
         public float HalfHeight { get; private set; }
 
+        public Vector2 Forward
+        {
+            get { return new Vector2((float)Math.Cos(sprite.Rotation), (float)Math.Sin(sprite.Rotation)); }
+            set { sprite.Rotation = (float)Math.Atan2(value.Y, value.X); } 
+        }
+
         public GameObject(string textureName, int spriteWidth = 0, int spriteHeight = 0)
         {
             texture = GfxManager.GetTexture(textureName);
